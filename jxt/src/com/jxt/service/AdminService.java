@@ -1,5 +1,6 @@
 package com.jxt.service;
 
+import com.jxt.common.Pager;
 import com.jxt.entity.Admin;
 
 
@@ -20,4 +21,9 @@ public interface AdminService extends BaseService<Admin, Long> {
 	public void saveAdmin(Admin admin);
 
 	public boolean canOperateAdmin(Long loginAdminId,Long adminId);
+<<<<<<< HEAD
+=======
+	
+	public Pager getSubAdminByParentId(Long adminId,Pager pager);
+>>>>>>> branch 'master' of https://github.com/limingxu/JXT.git
 }

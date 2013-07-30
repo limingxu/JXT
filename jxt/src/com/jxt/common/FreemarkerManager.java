@@ -43,10 +43,12 @@ public class FreemarkerManager extends org.apache.struts2.views.freemarker.Freem
 			TemplateHashModel staticModels = wrapper.getStaticModels();
 			TemplateHashModel configkeys = (TemplateHashModel) staticModels.get("com.jxt.common.ConfigKeys");
 			TemplateHashModel htmlUtil = (TemplateHashModel) staticModels.get("com.jxt.util.HtmlUtil");
+			TemplateHashModel adminTypes = (TemplateHashModel) staticModels.get("com.jxt.common.AdminType");
 			
 			// System keys
 			configuration.setSharedVariable("htmlUtil", htmlUtil);
 			configuration.setSharedVariable("ckey", configkeys);
+			configuration.setSharedVariable("adminTypes", adminTypes);
 			
 			// Domain constant
 			//configuration.setSharedVariable("SysAds", sysAds);

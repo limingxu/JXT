@@ -122,8 +122,13 @@ public class DecryptUtil {
      * @return 加密后的字符串
      * @throws Exception
      */
-    public String encrypt(String strIn) throws Exception {
-        return byteArr2HexStr(encrypt(strIn.getBytes()));
+    public String encrypt(String strIn)  {
+        try {
+			return byteArr2HexStr(encrypt(strIn.getBytes()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        return null;
     }
  
     /**

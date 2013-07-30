@@ -16,5 +16,8 @@ public interface AdminService extends BaseService<Admin, Long> {
 	 * 
 	 */
 	public Admin getAdminByUsername(String username);
+	
+	public void saveAdmin(Admin admin);
 
+	public boolean canOperateAdmin(Long loginAdminId,Long adminId);
 }

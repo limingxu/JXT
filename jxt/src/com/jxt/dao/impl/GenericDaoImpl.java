@@ -414,7 +414,7 @@ public class GenericDaoImpl<T, K extends Serializable> extends HibernateDaoSuppo
 		if(property==null || property.trim().equals("")){
 			hql = "select a from "+type.getName()+" a";
 		}else{
-			hql = "select a from "+type.getName()+" a where a."+property+"=:key";
+			hql = "select a from "+type.getName()+" a where a."+property+" like :key";
 		}
 		HqlParams params = new HqlParams();
 		params.add("key","%"+StringUtil.escapeMysqlLikeStr(value)+"%");

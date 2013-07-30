@@ -1,9 +1,7 @@
 package com.jxt.entity;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -31,20 +29,6 @@ public class Admin extends BaseEntity implements UserDetails  {
 	
 	public static final String ADMIN_LOGIN_SESSION_NAME = "login_admin";
 	
-	@Transient
-	public static final List<String> adminTypes = new ArrayList<String>();
-	
-	static{
-		adminTypes.add("ROLE_SYS_ADMIN");//系统管理员
-		adminTypes.add("ROLE_SYS_SERVER");//系统客服
-		adminTypes.add("ROLE_UNION_SERVER");//联通客服
-		adminTypes.add("ROLE_AGENT_ADMIN");//代理商管理员
-		adminTypes.add("ROLE_AGENT_SERVER");//代理商客服
-		adminTypes.add("ROLE_SCHOOL_ADMIN");//学校信息管理员
-		adminTypes.add("ROLE_TEACHER");//老师
-		adminTypes.add("ROLE_PARENT");//家长（系统暂时不只用该类型管理员）
-	}
-
 	private GrantedAuthority[] authorities;// 角色信息
 	private Admin parent;
 	private Agent agent;
@@ -61,6 +45,7 @@ public class Admin extends BaseEntity implements UserDetails  {
 	private String loginIp;
 	private Date loginDate;// 最后登录日期
 	private String comments;
+	private Boolean isEnable;
 	private Set<Role> roleSet = new HashSet<Role>();// 管理角色
 	private Set<Admin> childern = new HashSet<Admin>(0);
 	private Set<AdminSchool> adminSchools = new HashSet<AdminSchool>(0);
@@ -229,9 +214,17 @@ public class Admin extends BaseEntity implements UserDetails  {
 		this.adminSchools = adminSchools;
 	}
 
+	public Boolean getIsEnable() {
+		return isEnable;
+	}
+
+	public void setIsEnable(Boolean isEnable) {
+		this.isEnable = isEnable;
+	}
+
 	@Transient
 	public boolean isEnabled() {
-		return true;
+		return isEnable;
 	}
 
 	@Transient
@@ -256,5 +249,19 @@ public class Admin extends BaseEntity implements UserDetails  {
 
 	public void setAuthorities(GrantedAuthority[] authorities) {
 		this.authorities = authorities;
+	}
+	
+	@Override
+	@Transient
+	public void onSave() {
+		if(isEnable==null)
+			isEnable = false;
+	}
+	
+	@Override
+	@Transient
+	public void onUpdate() {
+		if(isEnable==null)
+			isEnable = false;
 	}
 }

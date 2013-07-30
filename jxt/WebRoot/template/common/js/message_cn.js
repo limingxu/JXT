@@ -1,6 +1,7 @@
 jQuery.extend(jQuery.validator.messages, {
   required: "必选字段",
   remote: "该字段值已存在",
+  username: "该字段只允许包含中文、英文、数字和下划线",
   email: "请输入正确格式的电子邮件",
   url: "请输入合法的网址",
   date: "请输入合法的日期",

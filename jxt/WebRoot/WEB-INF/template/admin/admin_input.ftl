@@ -10,6 +10,7 @@
 <script type="text/javascript" src="${base}/template/common/js/jquery.tools.js"></script>
 <script type="text/javascript" src="${base}/template/common/js/jquery.validate.js"></script>
 <script type="text/javascript" src="${base}/template/common/js/jquery.validate.methods.js"></script>
+<script type="text/javascript" src="${base}/template/common/js/message_cn.js"></script>
 <script type="text/javascript" src="${base}/template/admin/js/base.js"></script>
 <script type="text/javascript" src="${base}/template/admin/js/admin.js"></script>
 <script type="text/javascript">
@@ -18,13 +19,6 @@ $().ready( function() {
 	var $validateErrorContainer = $("#validateErrorContainer");
 	var $validateErrorLabelContainer = $("#validateErrorContainer ul");
 	var $validateForm = $("#validateForm");
-	
-	var $tab = $("#tab");
-
-	// Tab效果
-	$tab.tabs(".tabContent", {
-		tabs: "input"
-	});
 	
 	// 表单验证
 	$validateForm.validate({
@@ -43,6 +37,10 @@ $().ready( function() {
 					remote: "admin!checkUsername.action"
 				},
 			</#if>
+			"admin.name": {
+				required: true,
+				maxlength:20
+			},
 			"admin.password": {
 				<#if isAddAction>
 					required: true,
@@ -58,9 +56,10 @@ $().ready( function() {
 			},
 			"admin.email": {
 				required: true,
-				email: true
+				email: true,
+				maxlength:50
 			},
-			"roleList.id": "required"
+			"admin.roleType": "required"
 		},
 		messages: {
 			<#if isAddAction>
@@ -89,14 +88,13 @@ $().ready( function() {
 				required: "请填写E-mail",
 				email: "E-mail格式不正确"
 			},
-			"roleList.id": "请选择管理角色"
+			"admin.roleType": "请选择管理角色"
 		},
 		submitHandler: function(form) {
 			$(form).find(":submit").attr("disabled", true);
 			form.submit();
 		}
 	});
-
 });
 </script>
 </head>
@@ -111,14 +109,6 @@ $().ready( function() {
 	<div class="body">
 		<form id="validateForm" action="<#if isAddAction>admin!save.action<#else>admin!update.action</#if>" method="post">
 			<input type="hidden" name="id" value="${id}" />
-			<ul id="tab" class="tab">
-				<li>
-					<input type="button" value="基本信息" hidefocus />
-				</li>
-				<li>
-					<input type="button" value="个人资料" hidefocus />
-				</li>
-			</ul>
 			<table class="inputTable tabContent">
 				<tr>
 					<th>
@@ -126,30 +116,28 @@ $().ready( function() {
 					</th>
 					<td>
 						<#if isAddAction>
-							<input type="text" name="admin.username" class="formText" title="用户名只允许包含中文、英文、数字和下划线" />
+							<input type="text" title="用户名" name="admin.username" class="formText" title="用户名只允许包含中文、英文、数字和下划线" />
 							<label class="requireField">*</label>
 						<#else>
 							${(admin.username)!}
-							<input type="hidden" name="admin.username" class="formText" value="${(admin.username)!}" />
 						</#if>
 					</td>
 				</tr>
-				<#if !isAddAction && (admin.isShopkeeper)!>
 				<tr>
 					<th>
-						店铺名称: 
+						姓名: 
 					</th>
 					<td>
-						${(admin.shop.name)!}
+						<input type="text" title="姓名" name="admin.name" class="formText" value="${(admin.name)!}" />
+						<label class="requireField">*</label>
 					</td>
 				</tr>
-				</#if>
 				<tr>
 					<th>
 						密 码: 
 					</th>
 					<td>
-						<input type="password" name="admin.password" id="password" class="formText" title="密码长度只允许在4-20之间" />
+						<input type="password" title="密码" name="admin.password" id="password" class="formText" title="密码长度只允许在4-20之间" />
 						<#if isAddAction><label class="requireField">*</label></#if>
 					</td>
 				</tr>
@@ -158,8 +146,16 @@ $().ready( function() {
 						重复密码: 
 					</th>
 					<td>
-						<input type="password" name="rePassword" class="formText" />
+						<input type="password" title="重复密码" name="rePassword" class="formText" />
 						<#if isAddAction><label class="requireField">*</label></#if>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						电话: 
+					</th>
+					<td>
+						<input type="text" title="电话" name="admin.phoneNum" class="formText" value="${(admin.phoneNum)!}" />
 					</td>
 				</tr>
 				<tr>
@@ -167,7 +163,7 @@ $().ready( function() {
 						E-mail: 
 					</th>
 					<td>
-						<input type="text" name="admin.email" class="formText" value="${(admin.email)!}" />
+						<input type="text" title="E-mail" name="admin.email" class="formText" value="${(admin.email)!}" />
 						<label class="requireField">*</label>
 					</td>
 				</tr>
@@ -176,22 +172,29 @@ $().ready( function() {
 						管理角色: 
 					</th>
 					<td>
-						<#assign roleSet = (admin.roleSet)! />
-						<#list allRoleList as role>
-							<label>
-								<input type="checkbox" name="roleList.id" value="${role.id}"<#if (roleSet.contains(role))!> checked</#if> />${role.name}
-							</label>
+					<select title="管理角色" name="admin.roleType" style="float:left;">
+						<#list canAddAdminTypes as adminType>
+							<option value="${adminType.key}" <#if (admin.roleType == adminType.key)!>selected</#if> >
+								${adminType.value}
+							</option>
 						</#list>
-						<label class="requireField">*</label>
+					</select>
+					<label class="requireField" style="float:left;">*</label>
 					</td>
 				</tr>
 				<tr>
 					<th>
 						设置: 
 					</th>
-					<td>
+					<td><select title="管理角色" name="admin.roleType" style="float:left;">
+					<#list cityList as city>
+						<option value="${(city.id)!}">
+							${(city.name)!}
+						</option>
+					</#list>
+				</select>
 						<label>
-							<@checkbox name="admin.isAccountEnabled" value="${(admin.isAccountEnabled)!true}" />启用
+							<@checkbox title="设置" name="admin.isEnabled" value="${(admin.Enabled)!true}" />启用
 						</label>
 					</td>
 				</tr>
@@ -203,24 +206,6 @@ $().ready( function() {
 						</td>
 					</tr>
 				</#if>
-			</table>
-			<table class="inputTable tabContent">
-				<tr>
-					<th>
-						部门: 
-					</th>
-					<td>
-						<input type="text" name="admin.department" class="formText" value="${(admin.department)!}" />
-					</td>
-				</tr>
-				<tr>
-					<th>
-						姓名: 
-					</th>
-					<td>
-						<input type="text" name="admin.name" class="formText" value="${(admin.name)!}" />
-					</td>
-				</tr>
 			</table>
 			<div class="buttonArea">
 				<input type="submit" class="formButton" value="确  定" hidefocus />&nbsp;&nbsp;

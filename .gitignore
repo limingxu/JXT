@@ -4,10 +4,12 @@
 *.jar
 *.war
 *.ear
-/.classpath
+/jxt/.classpath
+/jxt/.project
+
 
 #Package
-/build
-/.setting
+/jxt/build/*
+/jxt/.settings/*
 
 

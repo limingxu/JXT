@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mall> 
+	<description>config</description>  
+	<setting> 
+		<systemName>jxt</systemName>  
+		<systemVersion>1.0</systemVersion>  
+		<systemDescription>jxt</systemDescription>  
+		<contextPath>/jxt</contextPath>  
+		<imageUploadPath>/upload/image/{date(yyyyMM)}</imageUploadPath>  
+		<imageBrowsePath>/upload/image</imageBrowsePath>  
+		<adminLoginUrl>/admin/index.jsp</adminLoginUrl>  
+		<adminLoginProcessingUrl>/admin/login/check</adminLoginProcessingUrl>  
+		<currencyType>CNY</currencyType>  
+		<currencySign>￥</currencySign>  
+		<currencyUnit>元</currencyUnit>  
+		<priceScale>2</priceScale>  
+		<priceRoundType>roundHalfUp</priceRoundType>  
+		<uploadLimit>1024</uploadLimit>  
+		<isLoginFailureLock>true</isLoginFailureLock>  
+		<loginFailureLockCount>5</loginFailureLockCount>  
+		<loginFailureLockTime>5</loginFailureLockTime>  
+		<isGzipEnabled>false</isGzipEnabled>  
+	</setting>  
+</mall>

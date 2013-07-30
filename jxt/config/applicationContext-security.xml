@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns="http://www.springframework.org/schema/beans" 
+	   xmlns:sec="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security-2.0.4.xsd"
+       default-lazy-init="true">
+	<sec:http auto-config="true" servlet-api-provision="false" access-denied-page="/html/error_page_access_denied.html">
+		<sec:form-login login-page="/admin/index.jsp" login-processing-url="/admin/login/check" default-target-url="/admin/page!main.action" authentication-failure-url="/admin/index.jsp" always-use-default-target="true"  />
+		<sec:logout invalidate-session="true" logout-success-url="/admin/index.jsp" logout-url="/admin/logout" />
+		
+		<!-- 后台登录 -->
+		<sec:intercept-url pattern="/admin/index.jsp" filters="none" />
+		<sec:intercept-url pattern="/admin/admin!checkUsername.action" filters="none" />
+
+		<!-- JS编辑器上传和显示图片 -->
+		<sec:intercept-url pattern="/admin/file!ajaxUpload.action" filters="none" />
+		<sec:intercept-url pattern="/admin/file!ajaxBrowser.action" filters="none" />
+
+		<!-- 基础管理权限 -->
+		<sec:intercept-url pattern="/admin/**.action" access="ROLE_SYS_ADMIN" />
+	</sec:http>
+
+	<sec:authentication-provider user-service-ref="adminDetailsServiceImpl">
+		<!--<sec:password-encoder hash="md5" /> -->
+		  <sec:password-encoder ref="DESPasswordEncoder"></sec:password-encoder> 
+	</sec:authentication-provider>
+</beans>

@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package com.jxt.dao.impl;
 
 import java.util.List;
@@ -25,18 +25,4 @@ public class DistrictDaoImpl extends GenericDaoImpl<District,Long> implements Di
 		
 		return districtList;
 	}
-
 }
-=======
-package com.jxt.dao.impl;
-
-import org.springframework.stereotype.Repository;
-
-import com.jxt.dao.DistrictDao;
-import com.jxt.entity.District;
-
-@Repository(value="districtDaoImpl")
-public class DistrictDaoImpl extends GenericDaoImpl<District,Long> implements DistrictDao {
-
-}
->>>>>>> branch 'master' of https://github.com/limingxu/JXT.git

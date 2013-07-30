@@ -68,12 +68,9 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin, Long> implements Ad
 		}
 		return false;
 	}
-<<<<<<< HEAD
-=======
 
 	@Override
 	public Pager getSubAdminByParentId(Long adminId, Pager pager) {
 		return adminDao.getAdminByParentAdminId(adminId, pager);
 	}
->>>>>>> branch 'master' of https://github.com/limingxu/JXT.git
 }

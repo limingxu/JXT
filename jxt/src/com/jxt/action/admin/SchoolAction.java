@@ -2,19 +2,19 @@ package com.jxt.action.admin;
 
 import java.util.Set;
 
+import javax.annotation.Resource;
+
 import org.apache.log4j.Logger;
 import org.apache.struts2.convention.annotation.ParentPackage;
 
-import com.jxt.common.AdminType;
 import com.jxt.entity.Admin;
 import com.jxt.entity.Agent;
+import com.jxt.entity.City;
 import com.jxt.entity.District;
 import com.jxt.entity.School;
+import com.jxt.service.SchoolService;
 import com.opensymphony.xwork2.interceptor.annotations.InputConfig;
-import com.opensymphony.xwork2.validator.annotations.EmailValidator;
-import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
-import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.Validations;
 
 
@@ -31,7 +31,13 @@ public class SchoolAction extends BaseAction {
 	
 	private Logger logger = Logger.getLogger(this.getClass());
 	
-	private Set<District> districtList = null;
+	private Set<District> districtList ;
+	
+	private City city;
+	private District district;
+	
+	@Resource(name="schoolServiceImpl")
+	private SchoolService schoolService;
 	
 	// 列表
 	public String list() {
@@ -60,20 +66,26 @@ public class SchoolAction extends BaseAction {
 		return INPUT;
 	}
 	
-	
-	
 	@Validations(
 			requiredStrings = {
 				@RequiredStringValidator(fieldName = "school.name", message = "学校名不允许为空!"),
-				@RequiredStringValidator(fieldName = "city", message = "所在城市不允许为空"),
-				@RequiredStringValidator(fieldName = "admin.email", message = "所在地区不允许为空")
+				@RequiredStringValidator(fieldName = "city.id", message = "所在城市不允许为空"),
+				@RequiredStringValidator(fieldName = "district.id", message = "所在地区不允许为空")
 			}
 		)
-		@InputConfig(resultName = "error")
-		public String save() {
-			redirectUrl = "school!list.action";
-			return SUCCESS;
-		}
+		
+  @InputConfig(resultName = "error")
+  public String save() {
+		admin = this.getLoginAdmin();
+		school.setAgent(agent);
+		school.setDistrict(district);
+		school.setCity(city);
+		
+		schoolService.saveSchool(school, admin);
+		
+		redirectUrl = "school!list.action";
+		return SUCCESS;
+	}
 	
 	public Admin getAdmin() {
 		return admin;
@@ -106,7 +118,21 @@ public class SchoolAction extends BaseAction {
 	public void setDistrictList(Set<District> districtList) {
 		this.districtList = districtList;
 	}
-	
-	
+
+	public City getCity() {
+		return city;
+	}
+
+	public void setCity(City city) {
+		this.city = city;
+	}
+
+	public District getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(District district) {
+		this.district = district;
+	}
 	
 }

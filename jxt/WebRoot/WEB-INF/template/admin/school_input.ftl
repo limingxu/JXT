@@ -66,11 +66,11 @@ $().ready( function() {
 					minlength: 2,
 					maxlength: 	 20
 				},
-			"city": {
+			"city.id": {
 				required: true
 			},
 		
-			"district": {
+			"district.id": {
 				required: true
 			},
 			"agent.shortName": {
@@ -96,6 +96,7 @@ $().ready( function() {
 	</div>
 	<div class="body">
 		<form id="validateForm" action="<#if isAddAction>school!save.action<#else>school!update.action</#if>" method="post">
+			<input type="hidden" name="isAddAction" value="${(isAddAction)!}" />
 			<input type="hidden" name="id" value="${(school.id)!}" />
 			<ul id="tab" class="tab">
 				<li>
@@ -117,10 +118,10 @@ $().ready( function() {
 						所在城市
 					</th>
 					<td>	
-							<select id="citySel" name="city" class="selectText" width="180px" title="所在城市">
+							<select id="citySel" name="city.id" class="selectText" width="180px" title="所在城市">
 								<option value="">请选择...</option>
 								<#list cityList as city>
-									<option value="${(city.id)!}"  <#if (city)! == city.id>selected</#if>>
+									<option value="${(city.id)!}"  <#if (cityId)! == city.id>selected</#if>>
 										${(city.name)!}
 									</option>
 								</#list>
@@ -133,7 +134,7 @@ $().ready( function() {
 						所在区县: 
 					</th>
 					<td>
-						<select id="districtSel" name="district" class="selectText" title="所在区县">
+						<select id="districtSel" name="district.id" class="selectText" title="所在区县">
 							<option value="">请选择...</option>
 							<#list districtList as district>
 									<option value="${(district.id)!}"  <#if (district)! == district.id>selected</#if>>
@@ -149,6 +150,7 @@ $().ready( function() {
 						代理商: 
 					</th>
 					<td>
+						<input type="hidden" name="agent.id" value="${(agent.id)!}">
 						<input type="text" title="代理商" name="agent.shortName" value="${(agent.shortName)!}" class="formText" color="red" <#if isAddAction>disabled</#if>  />
 						<label class="requireField">*</label>
 					</td>
@@ -158,7 +160,7 @@ $().ready( function() {
 						学校联系方式: 
 					</th>
 					<td>
-						<textarea name="role.description" class="formTextarea">${(role.description)!}</textarea>
+						<textarea name="school.description" class="formTextarea">${(school.description)!}</textarea>
 					</td>
 				</tr>
 			</table>

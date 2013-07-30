@@ -450,6 +450,7 @@ CREATE TABLE `school` (
   `name` varchar(50) NOT NULL,
   `status` int(11) NOT NULL,
   `agent_id` bigint(20) DEFAULT NULL,
+  
   PRIMARY KEY (`id`),
   KEY `fk_sch_ref_agent` (`agent_id`),
   CONSTRAINT `fk_sch_ref_agent` FOREIGN KEY (`agent_id`) REFERENCES `agent` (`id`)

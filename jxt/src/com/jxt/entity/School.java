@@ -18,6 +18,9 @@ public class School extends com.jxt.entity.BaseEntity implements
 	private static final long serialVersionUID = -5017700330856924156L;
 
 	private Agent agent;
+	private City city;
+	private District district;
+	
 	private String name;
 	private String description;
 	private Integer status;
@@ -31,7 +34,27 @@ public class School extends com.jxt.entity.BaseEntity implements
 	public void setAgent(Agent agent) {
 		this.agent = agent;
 	}
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@ForeignKey(name = "fk_sch_ref_city")
+	public City getCity() {
+		return city;
+	}
 
+	public void setCity(City city) {
+		this.city = city;
+	}
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@ForeignKey(name = "fk_sch_ref_district")
+	public District getDistrict() {
+		return district;
+	}
+
+	public void setDistrict(District district) {
+		this.district = district;
+	}
+	
 	@Column(nullable = false, length = 50)
 	public String getName() {
 		return this.name;
@@ -58,4 +81,8 @@ public class School extends com.jxt.entity.BaseEntity implements
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+
+
+	
+	
 }

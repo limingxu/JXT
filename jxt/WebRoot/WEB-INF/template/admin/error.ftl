@@ -45,5 +45,6 @@ $().ready( function() {
 </script>
 </head>
 <body class="error">
+	您的操作出现错误!
 </body>
 </html>

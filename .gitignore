@@ -4,6 +4,10 @@
 *.jar
 *.war
 *.ear
+/.classpath
 
 #Package
 /build
+/.setting
+
+

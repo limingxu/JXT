@@ -6,8 +6,4 @@ public interface Hqls {
 		String get_login_admin_by_username = "select a from Admin a left join fetch a.adminSchools b left join fetch b.school where a.username=:username";
 
 	}
-	
-	public interface CityHqls {
-		String all_join_district = "select a from City a left join fetch a.districts";
-	}
 }

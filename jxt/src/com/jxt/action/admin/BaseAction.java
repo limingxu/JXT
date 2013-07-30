@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import com.jxt.entity.Admin;
 import com.jxt.entity.BusiStatus;
 import com.jxt.entity.City;
 import com.jxt.entity.SmsStatus;
+import com.jxt.service.AdminService;
 import com.jxt.util.JsonUtil;
 import com.jxt.util.SettingUtil;
 import com.opensymphony.xwork2.ActionContext;
@@ -40,6 +42,8 @@ public class BaseAction extends ActionSupport {
 	public static final String SUCCESS = "success";
 	public static final String ERROR = "error";
 	public static final String REDIRECT = "redirect";
+	@Resource(name="adminServiceImpl")
+	private AdminService adminService;
 	
 	public static final String STATUS_PARAMETER_NAME = "status";// 操作状�?参数名称
 	public static final String MESSAGE_PARAMETER_NAME = "message";// 操作消息参数名称
@@ -69,9 +73,10 @@ public class BaseAction extends ActionSupport {
 	}
 	
 	public Admin getLoginAdmin(){
-		return (Admin)SecurityContextHolder.getContext()
+		Admin loginAdmin = (Admin)SecurityContextHolder.getContext()
 			    .getAuthentication()
 			    .getPrincipal();
+		return adminService.get(loginAdmin.getId());
 	}
 	
 	// 获取系统配置信息
@@ -325,47 +330,47 @@ public class BaseAction extends ActionSupport {
 		this.redirectUrl = redirectUrl;
 	}
 
-	public static List<BusiStatus> getBusiStatusList() {
+	public List<BusiStatus> getBusiStatusList() {
 		return busiStatusList;
 	}
 
-	public static void setBusiStatusList(List<BusiStatus> busiStatusList) {
+	public static  void setBusiStatusList(List<BusiStatus> busiStatusList) {
 		BaseAction.busiStatusList = busiStatusList;
 	}
 
-	public static List<SmsStatus> getSmsStatusList() {
+	public List<SmsStatus> getSmsStatusList() {
 		return smsStatusList;
 	}
 
-	public static void setSmsStatusList(List<SmsStatus> smsStatusList) {
+	public static  void setSmsStatusList(List<SmsStatus> smsStatusList) {
 		BaseAction.smsStatusList = smsStatusList;
 	}
 
-	public static List<City> getCityList() {
+	public List<City> getCityList() {
 		return cityList;
 	}
 
-	public static void setCityList(List<City> cityList) {
+	public static  void setCityList(List<City> cityList) {
 		BaseAction.cityList = cityList;
 	}
 
-	public static Map<String, BusiStatus> getBusiStatusMap() {
+	public Map<String, BusiStatus> getBusiStatusMap() {
 		return busiStatusMap;
 	}
 
-	public static void setBusiStatusMap(Map<String, BusiStatus> busiStatusMap) {
+	public static  void setBusiStatusMap(Map<String, BusiStatus> busiStatusMap) {
 		BaseAction.busiStatusMap = busiStatusMap;
 	}
 
-	public static Map<String, SmsStatus> getSmsStatusMap() {
+	public Map<String, SmsStatus> getSmsStatusMap() {
 		return smsStatusMap;
 	}
 
-	public static void setSmsStatusMap(Map<String, SmsStatus> smsStatusMap) {
+	public static  void setSmsStatusMap(Map<String, SmsStatus> smsStatusMap) {
 		BaseAction.smsStatusMap = smsStatusMap;
 	}
 
-	public static Map<Long, City> getCityMap() {
+	public Map<Long, City> getCityMap() {
 		return cityMap;
 	}
 

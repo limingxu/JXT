@@ -13,6 +13,23 @@
 		<@sec.authorize ifAnyGranted="ROLE_SYS_ADMIN">
 			<dl>
 				<dt>
+					<span>管理员管理&nbsp;</span>
+				</dt>
+				<@sec.authorize ifAnyGranted="ROLE_SYS_ADMIN">
+					<dd>
+						<a href="admin!list.action" target="mainFrame">下辖管理员</a>
+					</dd>
+				</@sec.authorize>
+				<@sec.authorize ifAnyGranted="ROLE_SYS_ADMIN">
+					<dd>
+						<a href="admin!add.action" target="mainFrame">添加管理员</a>
+					</dd>
+				</@sec.authorize>
+			</dl>
+		</@sec.authorize>
+		<@sec.authorize ifAnyGranted="ROLE_SYS_ADMIN">
+			<dl>
+				<dt>
 					<span>信息管理&nbsp;</span>
 				</dt>
 				<@sec.authorize ifAnyGranted="ROLE_SYS_ADMIN">

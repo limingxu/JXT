@@ -17,6 +17,8 @@ body {
 	background: url(../images/admin_x_bg.gif) 0px 0px repeat-x;
 }
 
+.fl{ float:left; display:inline;}
+
 /* ---------- Login ---------- */
 
 .login .body {

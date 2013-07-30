@@ -1,8 +1,10 @@
 package com.jxt.entity;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -11,11 +13,10 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.Transient;
 
-
-
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.annotations.ForeignKey;
 
+import com.jxt.common.AdminType;
 import com.jxt.util.JsonUtil;
 
 
@@ -38,17 +39,17 @@ public class Role extends BaseEntity {
 	private Set<Admin> adminSet = new HashSet<Admin>();// 管理员
 	
 	@Transient
-	public static final List<String> roleTypes = new ArrayList<String>();
+	public static final Map<String,Long> roleTypes = new HashMap<String,Long>();
 	
 	static{
-		roleTypes.add("ROLE_SYS_ADMIN");//系统管理员
-		roleTypes.add("ROLE_SYS_SERVER");//系统客服
-		roleTypes.add("ROLE_UNION_SERVER");//联通客服
-		roleTypes.add("ROLE_AGENT_ADMIN");//代理商管理员
-		roleTypes.add("ROLE_AGENT_SERVER");//代理商客服
-		roleTypes.add("ROLE_SCHOOL_ADMIN");//学校信息管理员
-		roleTypes.add("ROLE_TEACHER");//老师
-		roleTypes.add("ROLE_PARENT");//家长（系统暂时不只用该类型管理员）
+		roleTypes.put(AdminType.ROLE_SYS_ADMIN,1L);//系统管理员
+		roleTypes.put(AdminType.ROLE_SYS_SERVER,2L);//系统客服
+		roleTypes.put(AdminType.ROLE_UNION_SERVER,3L);//联通客服
+		roleTypes.put(AdminType.ROLE_AGENT_ADMIN,4L);//代理商管理员
+		roleTypes.put(AdminType.ROLE_AGENT_SERVER,5L);//代理商客服
+		roleTypes.put(AdminType.ROLE_SCHOOL_ADMIN,6L);//学校信息管理员
+		roleTypes.put(AdminType.ROLE_TEACHER,7L);//老师
+		roleTypes.put(AdminType.ROLE_PARENT,8L);//家长（系统暂时不只用该类型管理员）
 	}
 
 	@Column(nullable = false)

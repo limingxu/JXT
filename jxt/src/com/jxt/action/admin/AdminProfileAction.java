@@ -2,7 +2,6 @@ package com.jxt.action.admin;
 
 import javax.annotation.Resource;
 
-
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -31,14 +30,9 @@ public class AdminProfileAction extends BaseAction {
 	// ajax验证当前密码是否正确
 	public String checkCurrentPassword() {
 		Admin admin = getLoginAdmin();
-		
-		try {
-			if (StringUtils.equals(DecryptUtil.getInstance().encrypt(currentPassword), admin.getPassword())) {
-				return ajax("true");
-			} else {
-				return ajax("false");
-			}
-		} catch (Exception e) {
+		if (StringUtils.equals(DecryptUtil.getInstance().encrypt(currentPassword), admin.getPassword())) {
+			return ajax("true");
+		} else {
 			return ajax("false");
 		}
 	}
@@ -65,7 +59,7 @@ public class AdminProfileAction extends BaseAction {
 	public String update() {
 		Admin persistent = adminService.get(getLoginAdmin().getId());
 		if (StringUtils.isNotEmpty(currentPassword) && StringUtils.isNotEmpty(admin.getPassword())) {
-			if (!StringUtils.equals(DigestUtils.md5Hex(currentPassword), persistent.getPassword())) {
+			if (!StringUtils.equals(DecryptUtil.getInstance().encrypt(currentPassword), persistent.getPassword())) {
 				addActionError("当前密码输入错误!");
 				return ERROR;
 			}

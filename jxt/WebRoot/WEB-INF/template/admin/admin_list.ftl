@@ -30,22 +30,6 @@
 				</select>
 				<input type="text" name="pager.keyword" value="${pager.keyword!}" />
 				<input type="button" id="searchButton" class="formButton" value="搜 索" hidefocus />
-				&nbsp;&nbsp;
-				<label>每页显示: </label>
-				<select name="pager.pageSize" id="pageSize">
-					<option value="10"<#if pager.pageSize == 10> selected</#if>>
-						10
-					</option>
-					<option value="20"<#if pager.pageSize == 20> selected</#if>>
-						20
-					</option>
-					<option value="50"<#if pager.pageSize == 50> selected</#if>>
-						50
-					</option>
-					<option value="100"<#if pager.pageSize == 100> selected</#if>>
-						100
-					</option>
-				</select>
 			</div>
 			<table id="listTable" class="listTable">
 				<tr>
@@ -61,7 +45,9 @@
 					<th>
 						<a href="#" class="sort" name="name" hidefocus>姓名</a>
 					</th>
-					
+					<th>
+						<a href="#" class="sort" name="phoneNum" hidefocus>电话</a>
+					</th>
 					<th>
 						<a href="#" class="sort" name="loginDate" hidefocus>最后登录时间</a>
 					</th>
@@ -92,7 +78,9 @@
 						<td>
 							${(admin.name)!}
 						</td>
-						
+						<td>
+							${(admin.phoneNum)!}
+						</td>
 						<td>
 							<#if admin.loginDate??>
 								<span title="${admin.loginDate?string("yyyy-MM-dd HH:mm:ss")}">${admin.loginDate}</span>
@@ -104,16 +92,10 @@
 							${(admin.loginIp)!}
 						</td>
 						<td>
-							<#if admin.isAccountEnabled && !admin.isAccountLocked && !admin.isAccountExpired && !admin.isCredentialsExpired>
+							<#if admin.isEnable>
 								<span class="green">正常</span>
-							<#elseif !admin.isAccountEnabled>
+							<#else>
 								<span class="red"> 未启用 </span>
-							<#elseif admin.isAccountLocked>
-								<span class="red"> 已锁定 </span>
-							<#elseif admin.isAccountExpired>
-								<span class="red"> 已过期 </span>
-							<#elseif admin.isCredentialsExpired>
-								<span class="red"> 凭证过期 </span>
 							</#if>
 						</td>
 						<td>

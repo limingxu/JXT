@@ -1,4 +1,5 @@
 package com.jxt.listener;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,7 +42,7 @@ public class InitializableApplicationListener implements ApplicationListener, Se
 		if(!isInit){
 			List<City> cityList = (List<City>)cityService.getAll();
 			if(cityList!=null && cityList.size()>0){}{
-				Map<Long,City> map = BaseAction.getCityMap();
+				Map<Long,City> map = new HashMap<Long,City>();
 				BaseAction.setCityList(cityList);
 				for(City city : cityList){
 					map.put(city.getId(), city);
@@ -50,7 +51,7 @@ public class InitializableApplicationListener implements ApplicationListener, Se
 			
 			List<SmsStatus> smsStatusList = (List<SmsStatus>)smsStatusService.getAll();
 			if(smsStatusList!=null && smsStatusList.size()>0){}{
-				Map<String,SmsStatus> map = BaseAction.getSmsStatusMap();
+				Map<String,SmsStatus> map = new HashMap<String,SmsStatus>();
 				BaseAction.setSmsStatusList(smsStatusList);
 				for(SmsStatus status : smsStatusList){
 					map.put(status.getId(), status);
@@ -59,7 +60,7 @@ public class InitializableApplicationListener implements ApplicationListener, Se
 			
 			List<BusiStatus> busiStatusList = (List<BusiStatus>)busiStatusService.getAll();
 			if(smsStatusList!=null && smsStatusList.size()>0){}{
-				Map<String,BusiStatus> map = BaseAction.getBusiStatusMap();
+				Map<String,BusiStatus> map = new HashMap<String,BusiStatus>();
 				BaseAction.setBusiStatusList(busiStatusList);
 				for(BusiStatus status : busiStatusList){
 					map.put(status.getId(), status);

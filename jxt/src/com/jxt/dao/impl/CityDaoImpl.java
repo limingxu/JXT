@@ -17,7 +17,7 @@ public class CityDaoImpl extends GenericDaoImpl<City,Long> implements CityDao {
 		if(citys==null || citys.size()==0)
 			return citys;
 		for(City city : citys){
-			Hibernate.initialize(city);
+			Hibernate.initialize(city.getDistricts());
 		}
 		return citys;
 	}

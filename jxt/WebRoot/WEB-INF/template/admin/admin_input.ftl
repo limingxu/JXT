@@ -186,13 +186,7 @@ $().ready( function() {
 					<th>
 						设置: 
 					</th>
-					<td><select title="管理角色" name="admin.roleType" style="float:left;">
-					<#list cityList as city>
-						<option value="${(city.id)!}">
-							${(city.name)!}
-						</option>
-					</#list>
-				</select>
+					<td>
 						<label>
 							<@checkbox title="设置" name="admin.isEnabled" value="${(admin.Enabled)!true}" />启用
 						</label>

@@ -49,6 +49,9 @@ public class AdminAction extends BaseAction {
 	
 	// ajax验证当前密码是否正确
 	public String enable() {
+		if(id==1){
+			return ajax(Status.error, "此管理员不允许禁用启用操作!");
+		}
 		boolean b = adminService.canOperateAdmin(getLoginAdmin().getId(), id);
 		if(!b){
 			return ajax(Status.error, "您没有权限操作此用户!");
@@ -73,7 +76,7 @@ public class AdminAction extends BaseAction {
 
 	// 列表
 	public String list() {
-		pager = adminService.pagerByPropertyLike(pager);
+		pager = adminService.getSubAdminByParentId(getLoginAdmin().getId(),pager);
 		return LIST;
 	}
 

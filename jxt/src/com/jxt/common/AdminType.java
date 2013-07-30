@@ -34,7 +34,9 @@ public class AdminType{
 		this.value=Val;
 	}
 	
-	
+	public static String getNameText(String key){
+		return adminTypes.get(key);
+	}
 	
 	public static boolean contains(String key){
 		return adminTypes.containsKey(key);

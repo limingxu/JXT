@@ -10,6 +10,36 @@
 <script type="text/javascript" src="${base}/template/common/js/jquery.pager.js"></script>
 <script type="text/javascript" src="${base}/template/admin/js/base.js"></script>
 <script type="text/javascript" src="${base}/template/admin/js/admin.js"></script>
+<script type="text/javascript">
+$().ready( function() {
+	function enableAdmin(id,enableStatusEid){
+		$.ajax({
+			url: "admin!enable.action",
+			data: {id: id},
+			type: "GET",
+			dataType: "json",
+			async: false,
+			cache: false,
+			success: function(data) {
+				if(data && data!=null){
+					if(data.status){
+						var $status = $("#"+enableStatusEid);
+						if($status.attr("class"=="green")){
+							$status.removeClass("green");
+							$status.addClass("red");
+						}else{
+							$status.removeClass("red");
+							$status.addClass("green");
+						}
+					}else{
+						alert("操作失败!");
+					}
+				}
+			}
+		});
+	}
+}
+</script>
 </head>
 <body class="list">
 	<div class="bar">
@@ -33,9 +63,6 @@
 			</div>
 			<table id="listTable" class="listTable">
 				<tr>
-					<th class="check">
-						<input type="checkbox" class="allCheck" />
-					</th>
 					<th>
 						<a href="#" class="sort" name="username" hidefocus>用户名</a>
 					</th>
@@ -44,6 +71,9 @@
 					</th>
 					<th>
 						<a href="#" class="sort" name="name" hidefocus>姓名</a>
+					</th>
+					<th>
+						<a href="#" class="sort" name="roleType" hidefocus>管理员类型</a>
 					</th>
 					<th>
 						<a href="#" class="sort" name="phoneNum" hidefocus>电话</a>
@@ -67,9 +97,6 @@
 				<#list pager.result as admin>
 					<tr>
 						<td>
-							<input type="checkbox" name="ids" value="${admin.id}" />
-						</td>
-						<td>
 							${admin.username}
 						</td>
 						<td>
@@ -77,6 +104,9 @@
 						</td>
 						<td>
 							${(admin.name)!}
+						</td>
+						<td>
+							${adminTypes.getNameText(admin.roleType)}
 						</td>
 						<td>
 							${(admin.phoneNum)!}
@@ -93,25 +123,23 @@
 						</td>
 						<td>
 							<#if admin.isEnable>
-								<span class="green">正常</span>
+								<span id="status_${admin_index}" class="green">正常</span>
 							<#else>
-								<span class="red"> 未启用 </span>
+								<span id="status_${admin_index}" class="red"> 未启用 </span>
 							</#if>
 						</td>
 						<td>
 							<span title="${admin.createDate?string("yyyy-MM-dd HH:mm:ss")}">${admin.createDate}</span>
 						</td>
-						<td>
-							<a href="admin!edit.action?id=${admin.id}" title="编辑">[编辑]</a>
+						<td><#if admin.id!=1>
+							<a href="javascript:enableAdmin('${admin.id}','status_${admin_index}')"><#if admin.isEnable>禁用<#else>启用</#if></a>
+							</#if>
 						</td>
 					</tr>
 				</#list>
 			</table>
 			<#if (pager.result?size > 0)>
 				<div class="pagerBar">
-					<div class="delete">
-						<input type="button" id="deleteButton" class="formButton" url="admin!delete.action" value="删 除" disabled hidefocus />
-					</div>
 					<div class="pager">
 						<#include "/WEB-INF/template/admin/pager.ftl" />
 					</div>

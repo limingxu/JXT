@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.jxt.common.Pager;
 import com.jxt.dao.AdminDao;
 import com.jxt.dao.RoleDao;
 import com.jxt.entity.Admin;
@@ -66,5 +67,10 @@ public class AdminServiceImpl extends BaseServiceImpl<Admin, Long> implements Ad
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public Pager getSubAdminByParentId(Long adminId, Pager pager) {
+		return adminDao.getAdminByParentAdminId(adminId, pager);
 	}
 }

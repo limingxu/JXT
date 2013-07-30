@@ -1,5 +1,6 @@
 package com.jxt.dao;
 
+import com.jxt.common.Pager;
 import com.jxt.entity.Admin;
 
 
@@ -16,5 +17,7 @@ public interface AdminDao extends GenericDao<Admin, Long> {
 	 * 
 	 */
 	public Admin getAdminByUsername(String username);
+	
+	public Pager getAdminByParentAdminId(Long adminId,Pager pager);
 
 }

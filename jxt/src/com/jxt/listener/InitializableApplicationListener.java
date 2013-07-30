@@ -47,6 +47,7 @@ public class InitializableApplicationListener implements ApplicationListener, Se
 				for(City city : cityList){
 					map.put(city.getId(), city);
 				}
+				BaseAction.setCityMap(map);
 			}
 			
 			List<SmsStatus> smsStatusList = (List<SmsStatus>)smsStatusService.getAll();
@@ -56,6 +57,7 @@ public class InitializableApplicationListener implements ApplicationListener, Se
 				for(SmsStatus status : smsStatusList){
 					map.put(status.getId(), status);
 				}
+				BaseAction.setSmsStatusMap(map);
 			}
 			
 			List<BusiStatus> busiStatusList = (List<BusiStatus>)busiStatusService.getAll();
@@ -65,6 +67,7 @@ public class InitializableApplicationListener implements ApplicationListener, Se
 				for(BusiStatus status : busiStatusList){
 					map.put(status.getId(), status);
 				}
+				BaseAction.setBusiStatusMap(map);
 			}
 			isInit = true;
 		}

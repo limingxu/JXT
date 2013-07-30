@@ -10,6 +10,7 @@
 <script type="text/javascript" src="${base}/template/common/js/jquery.tools.js"></script>
 <script type="text/javascript" src="${base}/template/common/js/jquery.validate.js"></script>
 <script type="text/javascript" src="${base}/template/common/js/jquery.validate.methods.js"></script>
+<script type="text/javascript" src="${base}/template/common/js/message_cn.js"></script>
 <script type="text/javascript" src="${base}/template/admin/js/base.js"></script>
 <script type="text/javascript" src="${base}/template/admin/js/admin.js"></script>
 <script type="text/javascript">
@@ -26,6 +27,31 @@ $().ready( function() {
 		tabs: "input"
 	});
 	
+	var $citySel = $("#citySel");
+	var $districtSel = $("#districtSel");
+	//级联地区
+	$citySel.change( function() {
+		$districtSel.html('<option value="">请选择...</option>');
+		$.ajax({
+			url: "resource!ajaxGetDistrictByCityId.action",
+			data: {cityId: $citySel.val()},
+			type: "POST",
+			dataType: "json",
+			cache: false,
+			success: function(data) {
+				if (data != null) {
+					var option = "";
+					$.each(data, function(i) {
+						<@compress single_line = true>
+							option += '<option value="'+data[i].id+'">'+data[i].name+'</option>';
+						</@compress>
+					});
+					$districtSel.append(option);
+				}
+			}
+		 });
+	 });
+	
 	// 表单验证
 	$validateForm.validate({
 		errorContainer: $validateErrorContainer,
@@ -38,20 +64,18 @@ $().ready( function() {
 					required: true,
 					username: true,
 					minlength: 2,
-					maxlength: 	 20,
-					remote: "admin!checkUsername.action"
+					maxlength: 	 20
 				},
-			"admin.password": {
-				required: true,
-				minlength: 4,
-				maxlength: 	 20
+			"city": {
+				required: true
 			},
 		
-			"admin.email": {
-				required: true,
-				email: true
+			"district": {
+				required: true
 			},
-			"roleList.id": "required"
+			"agent.shortName": {
+				required: true
+			}
 		},
 		submitHandler: function(form) {
 			$(form).find(":submit").attr("disabled", true);
@@ -62,18 +86,17 @@ $().ready( function() {
 });
 </script>
 </head>
-<#assign cityList = "${settingUtil.getSetting().getCityList()}" />
 <body class="input admin">
 	<div class="bar">
 		<#if isAddAction>添加学校<#else>编辑学校</#if>
-	</div>
+	</div> 
 	<div id="validateErrorContainer" class="validateErrorContainer">
 		<div class="validateErrorTitle">以下信息填写有误,请重新填写</div>
 		<ul></ul>
 	</div>
 	<div class="body">
 		<form id="validateForm" action="<#if isAddAction>school!save.action<#else>school!update.action</#if>" method="post">
-			<input type="hidden" name="id" value="${id}" />
+			<input type="hidden" name="id" value="${(school.id)!}" />
 			<ul id="tab" class="tab">
 				<li>
 					<input type="button" value="基本信息" hidefocus />
@@ -94,9 +117,10 @@ $().ready( function() {
 						所在城市
 					</th>
 					<td>	
-							<select name="pager.searchBy" class="selectText" width="180px">
+							<select id="citySel" name="city" class="selectText" width="180px" title="所在城市">
+								<option value="">请选择...</option>
 								<#list cityList as city>
-									<option value="${(city.id)!}">
+									<option value="${(city.id)!}"  <#if (city)! == city.id>selected</#if>>
 										${(city.name)!}
 									</option>
 								</#list>
@@ -109,12 +133,13 @@ $().ready( function() {
 						所在区县: 
 					</th>
 					<td>
-						<select name="pager.searchBy" class="selectText">
+						<select id="districtSel" name="district" class="selectText" title="所在区县">
+							<option value="">请选择...</option>
 							<#list districtList as district>
-									<option value="${(district.id)!}">
-										${(district.name)}
+									<option value="${(district.id)!}"  <#if (district)! == district.id>selected</#if>>
+										${(district.name)!}
 									</option>
-							</#list>
+								</#list>
 						</select>	
 						<label class="requireField">*</label>
 					</td>
@@ -124,7 +149,7 @@ $().ready( function() {
 						代理商: 
 					</th>
 					<td>
-						<input type="agent.shortName" name="agent.shortName" value="${(admin.username)!}" class="formText" color="red" <#if isAddAction>disabled</#if>  />
+						<input type="text" title="代理商" name="agent.shortName" value="${(agent.shortName)!}" class="formText" color="red" <#if isAddAction>disabled</#if>  />
 						<label class="requireField">*</label>
 					</td>
 				</tr>
@@ -139,7 +164,7 @@ $().ready( function() {
 			</table>
 			<div class="buttonArea">
 				<input type="submit" class="formButton" value="确  定" hidefocus />&nbsp;&nbsp;
-				<input type="submit" class="formButton" value="重置" hidefocus />&nbsp;&nbsp;
+				<input type="button" id="reset" class="formButton"  value="重置" hidefocus />&nbsp;&nbsp;
 				<input type="button" class="formButton" onclick="window.history.back(); return false;" value="返  回" hidefocus />
 			</div>
 		</form>

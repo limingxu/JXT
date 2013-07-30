@@ -14,40 +14,12 @@
 
 <body class="list">
 	<div class="bar">
-		学校管理&nbsp;总记录数: ${pager.totalCount} (共${pager.pageCount}页)
+		学校管理
 	</div>
 	<div class="body">
 		<form id="listForm" action="admin!list.action" method="post">
 			<div class="listBar">
-				<input type="button" class="formButton" onclick="location.href='school!save.action'" value="添加学校" hidefocus />
-				&nbsp;&nbsp;
-				<!--
-				<select name="pager.searchBy">
-					<option value="username"<#if pager.searchBy == "username"> selected</#if>>
-						用户名
-					</option>
-					<option value="name"<#if pager.searchBy == "name"> selected</#if>>
-						姓名
-					</option> 
-				</select>
-				<input type="text" name="pager.keyword" value="${pager.keyword!}" />
-				<input type="button" id="searchButton" class="formButton" value="搜 索" hidefocus />
-				&nbsp;&nbsp;
-				<label>每页显示: </label>
-				<select name="pager.pageSize" id="pageSize">
-					<option value="10"<#if pager.pageSize == 10> selected</#if>>
-						10
-					</option>
-					<option value="20"<#if pager.pageSize == 20> selected</#if>>
-						20
-					</option>
-					<option value="50"<#if pager.pageSize == 50> selected</#if>>
-						50
-					</option>
-					<option value="100"<#if pager.pageSize == 100> selected</#if>>
-						100
-					</option>
-				</select>-->
+				<input type="button" class="formButton" onclick="location.href='school!add.action'" value="添加学校" hidefocus />
 			</div>
 			<table id="listTable" class="listTable">
 				<tr>

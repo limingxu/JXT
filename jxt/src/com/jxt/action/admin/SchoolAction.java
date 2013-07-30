@@ -1,25 +1,21 @@
 package com.jxt.action.admin;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.servlet.ServletContext;
+import java.util.Set;
 
 import org.apache.log4j.Logger;
 import org.apache.struts2.convention.annotation.ParentPackage;
-import org.springframework.context.ApplicationContext;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.jxt.common.AdminType;
 import com.jxt.entity.Admin;
 import com.jxt.entity.Agent;
-import com.jxt.entity.BusiStatus;
-import com.jxt.entity.City;
 import com.jxt.entity.District;
 import com.jxt.entity.School;
-import com.jxt.entity.SmsStatus;
-import com.jxt.service.SchoolService;
-import com.jxt.util.SettingUtil;
-import com.opensymphony.oscache.general.GeneralCacheAdministrator;
+import com.opensymphony.xwork2.interceptor.annotations.InputConfig;
+import com.opensymphony.xwork2.validator.annotations.EmailValidator;
+import com.opensymphony.xwork2.validator.annotations.RegexFieldValidator;
+import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
+import com.opensymphony.xwork2.validator.annotations.StringLengthFieldValidator;
+import com.opensymphony.xwork2.validator.annotations.Validations;
 
 
 @ParentPackage("admin")
@@ -33,10 +29,9 @@ public class SchoolAction extends BaseAction {
 	
 	private Agent agent;
 	
-	@Resource(name = "schoolServiceImpl")
-	private SchoolService schoolService;
-	
 	private Logger logger = Logger.getLogger(this.getClass());
+	
+	private Set<District> districtList = null;
 	
 	// 列表
 	public String list() {
@@ -51,10 +46,10 @@ public class SchoolAction extends BaseAction {
 		return LIST;
 	}
 	
-	public String save() {
+	public String add() {
 		admin = this.getLoginAdmin();
 		agent = admin.getAgent();
-		//pager = adminService.pagerByPropertyLike(pager);
+		//districtList = cityList.get(0).getDistricts();
 		
 		return INPUT;
 	}
@@ -64,6 +59,21 @@ public class SchoolAction extends BaseAction {
 		//pager = adminService.pagerByPropertyLike(pager);
 		return INPUT;
 	}
+	
+	
+	
+	@Validations(
+			requiredStrings = {
+				@RequiredStringValidator(fieldName = "school.name", message = "学校名不允许为空!"),
+				@RequiredStringValidator(fieldName = "city", message = "所在城市不允许为空"),
+				@RequiredStringValidator(fieldName = "admin.email", message = "所在地区不允许为空")
+			}
+		)
+		@InputConfig(resultName = "error")
+		public String save() {
+			redirectUrl = "school!list.action";
+			return SUCCESS;
+		}
 	
 	public Admin getAdmin() {
 		return admin;
@@ -80,5 +90,23 @@ public class SchoolAction extends BaseAction {
 	public void setSchool(School school) {
 		this.school = school;
 	}
+
+	public Agent getAgent() {
+		return agent;
+	}
+
+	public void setAgent(Agent agent) {
+		this.agent = agent;
+	}
+
+	public Set<District> getDistrictList() {
+		return districtList;
+	}
+
+	public void setDistrictList(Set<District> districtList) {
+		this.districtList = districtList;
+	}
+	
+	
 	
 }

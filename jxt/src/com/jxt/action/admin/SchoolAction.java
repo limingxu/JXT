@@ -33,9 +33,6 @@ public class SchoolAction extends BaseAction {
 	
 	private Set<District> districtList ;
 	
-	private City city;
-	private District district;
-	
 	@Resource(name="schoolServiceImpl")
 	private SchoolService schoolService;
 	
@@ -69,17 +66,16 @@ public class SchoolAction extends BaseAction {
 	@Validations(
 			requiredStrings = {
 				@RequiredStringValidator(fieldName = "school.name", message = "学校名不允许为空!"),
-				@RequiredStringValidator(fieldName = "city.id", message = "所在城市不允许为空"),
-				@RequiredStringValidator(fieldName = "district.id", message = "所在地区不允许为空")
+				@RequiredStringValidator(fieldName = "school.city.id", message = "所在城市不允许为空"),
+				@RequiredStringValidator(fieldName = "school.district.id", message = "所在地区不允许为空")
 			}
-		)
-		
+	)
   @InputConfig(resultName = "error")
   public String save() {
 		admin = this.getLoginAdmin();
-		school.setAgent(agent);
-		school.setDistrict(district);
-		school.setCity(city);
+//		school.setAgent(agent);
+//		school.setDistrict(district);
+//		school.setCity(city);
 		
 		schoolService.saveSchool(school, admin);
 		
@@ -104,7 +100,7 @@ public class SchoolAction extends BaseAction {
 	}
 
 	public Agent getAgent() {
-		return agent;
+		return agent; 
 	}
 
 	public void setAgent(Agent agent) {
@@ -118,21 +114,4 @@ public class SchoolAction extends BaseAction {
 	public void setDistrictList(Set<District> districtList) {
 		this.districtList = districtList;
 	}
-
-	public City getCity() {
-		return city;
-	}
-
-	public void setCity(City city) {
-		this.city = city;
-	}
-
-	public District getDistrict() {
-		return district;
-	}
-
-	public void setDistrict(District district) {
-		this.district = district;
-	}
-	
 }

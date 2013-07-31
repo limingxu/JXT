@@ -23,8 +23,9 @@ public class School extends com.jxt.entity.BaseEntity implements
 	
 	private String name;
 	private String description;
-	private Integer status;
-
+	private Integer status =isActive;
+	
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@ForeignKey(name = "fk_sch_ref_agent")
 	public Agent getAgent() {

@@ -18,7 +18,7 @@ public class AdminSchool extends com.jxt.entity.BaseEntity implements
 	private static final long serialVersionUID = -4405509099266480729L;
 	private Admin admin;
 	private School school;
-	private Integer status;
+	private Integer status =isActive;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@ForeignKey(name = "fk_sch2adm_ref_adm")

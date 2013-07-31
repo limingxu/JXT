@@ -1,7 +1,5 @@
 package com.jxt.action.admin;
 
-import java.util.Set;
-
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
@@ -9,11 +7,10 @@ import org.apache.struts2.convention.annotation.ParentPackage;
 
 import com.jxt.entity.Admin;
 import com.jxt.entity.Agent;
-import com.jxt.entity.City;
-import com.jxt.entity.District;
 import com.jxt.entity.School;
 import com.jxt.service.SchoolService;
 import com.opensymphony.xwork2.interceptor.annotations.InputConfig;
+import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.Validations;
 
@@ -31,8 +28,6 @@ public class SchoolAction extends BaseAction {
 	
 	private Logger logger = Logger.getLogger(this.getClass());
 	
-	private Set<District> districtList ;
-	
 	@Resource(name="schoolServiceImpl")
 	private SchoolService schoolService;
 	
@@ -40,11 +35,7 @@ public class SchoolAction extends BaseAction {
 	public String list() {
 		admin = this.getLoginAdmin();
 		
-		if(admin ==null ){
-			return ERROR;
-		}
-		this.setAttribute("admin",admin);
-		logger.info("登陆用户角色："+admin.getRoleType());
+		pager = schoolService.getAllSchools(admin, pager);
 		
 		return LIST;
 	}
@@ -58,25 +49,24 @@ public class SchoolAction extends BaseAction {
 	}
 	
 	public String edit() {
-		admin = this.getLoginAdmin();
-		//pager = adminService.pagerByPropertyLike(pager);
+		school = schoolService.get(id);
 		return INPUT;
 	}
 	
 	@Validations(
 			requiredStrings = {
-				@RequiredStringValidator(fieldName = "school.name", message = "学校名不允许为空!"),
-				@RequiredStringValidator(fieldName = "school.city.id", message = "所在城市不允许为空"),
-				@RequiredStringValidator(fieldName = "school.district.id", message = "所在地区不允许为空")
+				@RequiredStringValidator(fieldName = "school.name", message = "学校名不允许为空!")
+			},
+			requiredFields = {
+				@RequiredFieldValidator(fieldName = "school.city.id", message = "所在城市不允许为空"),
+				@RequiredFieldValidator(fieldName = "school.district.id", message = "所在地区不允许为空")
 			}
-	)
-  @InputConfig(resultName = "error")
+		)
+	  @InputConfig(resultName = "error")
   public String save() {
 		admin = this.getLoginAdmin();
-//		school.setAgent(agent);
-//		school.setDistrict(district);
-//		school.setCity(city);
 		
+		//设置
 		schoolService.saveSchool(school, admin);
 		
 		redirectUrl = "school!list.action";
@@ -105,13 +95,5 @@ public class SchoolAction extends BaseAction {
 
 	public void setAgent(Agent agent) {
 		this.agent = agent;
-	}
-
-	public Set<District> getDistrictList() {
-		return districtList;
-	}
-
-	public void setDistrictList(Set<District> districtList) {
-		this.districtList = districtList;
 	}
 }

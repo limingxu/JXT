@@ -34,7 +34,7 @@ public class SchoolAction extends BaseAction {
 	@Resource(name="schoolServiceImpl")
 	private SchoolService schoolService;
 	
-	
+	private Set<District> districtList = new HashSet<District>();
 	
 	// 列表
 	public String list() {

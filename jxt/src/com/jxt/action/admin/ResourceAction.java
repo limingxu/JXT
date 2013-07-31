@@ -17,6 +17,10 @@ public class ResourceAction extends BaseAction {
 	
 	
 	public void ajaxGetDistrictByCityId() {
+		if(cityId ==null){
+			ajax("");
+		}
+		
 		City city = (City) super.getCityMap().get(cityId);
 		Set<District> districtSet = city.getDistricts();
 		

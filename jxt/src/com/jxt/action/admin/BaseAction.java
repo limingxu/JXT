@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
@@ -20,6 +21,7 @@ import com.jxt.common.Setting;
 import com.jxt.entity.Admin;
 import com.jxt.entity.BusiStatus;
 import com.jxt.entity.City;
+import com.jxt.entity.District;
 import com.jxt.entity.SmsStatus;
 import com.jxt.service.AdminService;
 import com.jxt.util.JsonUtil;
@@ -56,6 +58,11 @@ public class BaseAction extends ActionSupport {
 	protected static Map<String,BusiStatus> busiStatusMap = new HashMap<String,BusiStatus>();
 	protected static Map<String,SmsStatus> smsStatusMap = new HashMap<String,SmsStatus>();
 	protected static Map<Long,City> cityMap = new HashMap<Long,City>();
+	
+	/*方便与city关联*/
+	private Set<District> districtList;
+	
+	
 	
 	// 操作状态（警告,错误、成功）
 	public enum Status {
@@ -377,4 +384,14 @@ public class BaseAction extends ActionSupport {
 	public static void setCityMap(Map<Long, City> cityMap) {
 		BaseAction.cityMap = cityMap;
 	}
+	
+	public Set<District> getDistrictList() {
+		return districtList;
+	}
+
+	public void setDistrictList(Set<District> districtList) {
+		this.districtList = districtList;
+	}
+	
+	
 }

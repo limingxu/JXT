@@ -52,6 +52,15 @@ $().ready( function() {
 		 });
 	 });
 	 
+	 var $reset = $("#reset");
+	 $reset.click( function(){
+	 	<#if isAddAction>
+	 		 window.location.href="school!add.action";
+	 	<#else> 
+	 		window.location.href="school!edit.action?id=${(school.id)!}";
+	 	</#if>
+	 });
+	 
 	// 表单验证
 	$validateForm.validate({
 		errorContainer: $validateErrorContainer,
@@ -91,16 +100,14 @@ $().ready( function() {
 		<#if isAddAction>添加学校<#else>编辑学校</#if>
 	</div> 
 	<div id="validateErrorContainer" class="validateErrorContainer">
-		<div class="validateErrorTitle">以下信息填写有误,请重新填写</div>
 		<ul></ul>
 	</div>
 	<div class="body">
 		<form id="validateForm" action="<#if isAddAction>school!save.action<#else>school!update.action</#if>" method="post">
-			<input type="hidden" name="isAddAction" value="${(isAddAction)!}" />
-			<input type="hidden" name="id" value="${(school.id)!}" />
+			<input type="hidden" name="school.id" value="${(school.id)!}" />
 			<ul id="tab" class="tab">
 				<li>
-					<input type="button" value="基本信息" hidefocus />
+					<input type="button" value="学校信息" hidefocus />
 				</li>
 			</ul>
 			<table class="inputTable tabContent">
@@ -134,13 +141,14 @@ $().ready( function() {
 						所在区县: 
 					</th>
 					<td>
+					
 						<select id="districtSel" name="school.district.id" class="selectText" title="所在区县">
 							<option value="">请选择...</option>
-							<#list school.district as district>
+							<#list districtList as district>
 									<option value="${(district.id)!}"  <#if (school.district.id)! == district.id>selected</#if>>
 										${(district.name)!}
 									</option>
-								</#list>
+							</#list> 
 						</select>	
 						<label class="requireField">*</label>
 					</td>
@@ -150,8 +158,8 @@ $().ready( function() {
 						代理商: 
 					</th>
 					<td>
-						<input type="hidden" name="school.agent.id" value="${(agent.id)!}">
-						<input type="text" title="代理商" name="school.agent.shortName" value="${(school.agent.shortName)!}" class="formText" color="red"  disabled  />
+						<input type="hidden" name="school.agent.id" value="${(school.agent.id)!}">
+						<input type="text" title="代理商" name="school.agent.name" value="${(school.agent.name)!}"  class="formText" color="red"  disabled  />
 						<label class="requireField">*</label>
 					</td>
 				</tr>
@@ -165,13 +173,8 @@ $().ready( function() {
 				</tr>
 			</table>
 			<div class="buttonArea">
-				<input type="submit" class="formButton" value="确  定" hidefocus />&nbsp;&nbsp;
-				<#if isAddAction>
-						<input type="button" id="reset" class="formButton" onclick="window.href.location='admin!add.action'" value="重置" hidefocus />&nbsp;&nbsp;
-				<#else>
-						<input type="button" id="reset" class="formButton" onclick="window.href.location='admin!edit.action?id=${(school.id)!}'"  value="重置" hidefocus />&nbsp;&nbsp;
-					</#if>
-				<input type="button" class="formButton" onclick="window.history.back(); return false;" value="返  回" hidefocus />
+				<input type="submit" class="formButton" value="提交" hidefocus />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<input type="button" id="reset" class="formButton"  value="重置" hidefocus />&nbsp;&nbsp;
 			</div>
 		</form>
 	</div>

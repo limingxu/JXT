@@ -1,14 +1,11 @@
 package com.jxt.action.admin;
 
-import java.util.List;
-
-import javax.annotation.Resource;
+import java.util.Set;
 
 import org.apache.struts2.convention.annotation.ParentPackage;
 
 import com.jxt.entity.City;
 import com.jxt.entity.District;
-import com.jxt.service.DistrictService;
 
 
 @ParentPackage("admin")
@@ -18,14 +15,16 @@ public class ResourceAction extends BaseAction {
 	
 	private Long cityId;
 	
-	@Resource(name="districtServiceImpl")
-	private DistrictService districtService;
 	
 	public void ajaxGetDistrictByCityId() {
 		City city = (City) super.getCityMap().get(cityId);
+		Set<District> districtSet = city.getDistricts();
 		
-		List<District> districtList = districtService.getAllDistricts(city);
-		ajax(districtList);
+		for(District district:districtSet){
+			district.setCity(null);
+		}
+		
+		ajax(districtSet);
 	}
 
 	public Long getCityId() {

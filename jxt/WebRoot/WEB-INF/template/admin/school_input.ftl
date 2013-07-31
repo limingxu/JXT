@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
-<head>
+<head> 
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <title>添加/编辑学校 - Powered By </title>
 <link rel="icon" href="favicon.ico" type="image/x-icon" />
@@ -42,7 +42,7 @@ $().ready( function() {
 				if (data != null) {
 					var option = "";
 					$.each(data, function(i) {
-						<@compress single_line = true>
+						<@compress single_line = false>
 							option += '<option value="'+data[i].id+'">'+data[i].name+'</option>';
 						</@compress>
 					});
@@ -66,14 +66,14 @@ $().ready( function() {
 					minlength: 2,
 					maxlength: 	 20
 				},
-			"city.id": {
+			"school.city.id": {
 				required: true
 			},
 		
-			"district.id": {
+			"school.district.id": {
 				required: true
 			},
-			"agent.shortName": {
+			"school.agent.shortName": {
 				required: true
 			}
 		},
@@ -118,10 +118,10 @@ $().ready( function() {
 						所在城市
 					</th>
 					<td>	
-							<select id="citySel" name="city.id" class="selectText" width="180px" title="所在城市">
+							<select id="citySel" name="school.city.id" class="selectText" width="180px" title="所在城市">
 								<option value="">请选择...</option>
 								<#list cityList as city>
-									<option value="${(city.id)!}"  <#if (cityId)! == city.id>selected</#if>>
+									<option value="${(city.id)!}"  <#if (school.city.id)! == city.id>selected</#if>>
 										${(city.name)!}
 									</option>
 								</#list>
@@ -134,10 +134,10 @@ $().ready( function() {
 						所在区县: 
 					</th>
 					<td>
-						<select id="districtSel" name="district.id" class="selectText" title="所在区县">
+						<select id="districtSel" name="school.district.id" class="selectText" title="所在区县">
 							<option value="">请选择...</option>
 							<#list districtList as district>
-									<option value="${(district.id)!}"  <#if (district)! == district.id>selected</#if>>
+									<option value="${(district.id)!}"  <#if (school.district.id)! == district.id>selected</#if>>
 										${(district.name)!}
 									</option>
 								</#list>
@@ -150,8 +150,8 @@ $().ready( function() {
 						代理商: 
 					</th>
 					<td>
-						<input type="hidden" name="agent.id" value="${(agent.id)!}">
-						<input type="text" title="代理商" name="agent.shortName" value="${(agent.shortName)!}" class="formText" color="red" <#if isAddAction>disabled</#if>  />
+						<input type="hidden" name="school.agent.id" value="${(agent.id)!}">
+						<input type="text" title="代理商" name="school.agent.shortName" value="${(agent.shortName)!}" class="formText" color="red" <#if isAddAction>disabled</#if>  />
 						<label class="requireField">*</label>
 					</td>
 				</tr>

@@ -62,7 +62,7 @@
 						</td>
 						<td>
 							<a href="school!edit.action?id=${(school.id)!}" title="修改">[修改]</a>
-							<a href="school!edit.action?id=${(school.id)!}" title="取消">[取消]</a>
+							<a href="school!cancel.action?id=${(school.id)!}" title="取消">[取消]</a>
 						</td>
 					</tr>
 			    </#list> 

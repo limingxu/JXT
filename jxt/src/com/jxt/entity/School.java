@@ -23,7 +23,7 @@ public class School extends com.jxt.entity.BaseEntity implements
 	
 	private String name;
 	private String description;
-	private Integer status =isActive;
+	private Integer status =ACTIVE;
 	
 	
 	@ManyToOne(fetch = FetchType.EAGER)

@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<title>管理中心</title>
+<title>家校通管理平台</title>
 <link rel="icon" href="favicon.ico" type="image/x-icon" />
 <link href="${base}/template/admin/css/base.css" rel="stylesheet" type="text/css" />
 <link href="${base}/template/admin/css/admin.css" rel="stylesheet" type="text/css" />
@@ -28,30 +28,26 @@ $().ready(function() {
 })
 </script>
 </head>
-<body class="header">
-<!-- 
-	<div class="body">
-		<div class="bodyRight">
-			<div class="link">
-				<span class="welcome">
-					<div class="logo"></div>
-				</span>
-			</div>
-			<div id="menu" class="menu">
-				<ul>
-					<@sec.authorize ifAnyGranted="ROLE_ADMIN,ROLE_ROLE,ROLE_MESSAGE,ROLE_LOG">
-						<li class="menuItem">
-							<a href="menu!admin.action" target="menuFrame" hidefocus>管理员</a>
-						</li>
-					</@sec.authorize>
-	            </ul>
-	            <div class="info">
-					<a class="profile" href="admin_profile!edit.action" target="mainFrame">个人资料</a>
-					<a class="logout" href="${base}/admin/logout" target="_top">退出</a>
-				</div>
-			</div>
-		</div>
-	</div> 
-	-->
+<body>
+	<table width="100%" height="84" border="0" cellpadding="0" cellspacing="0" class="admin_topbg">
+	  <tr>
+	    <td width="100%" height="64" colspan="3"><img src="${base}/template/admin/images/jxt_logo.jpg" width="100%" height="64"></td>
+	  </tr>
+	  <tr bgcolor="#EEF2FB" nowrap="nowrap">
+	    <td width="20%" height="10" align="left" nowrap="nowrap" class="left_txt">
+	    	<@sec.authorize ifAnyGranted="ROLE_ADMIN,ROLE_ROLE,ROLE_MESSAGE,ROLE_LOG">
+				<li class="menuItem">
+					<a href="menu!admin.action" target="menuFrame" hidefocus>管理员</a>，欢迎登录！
+				</li>
+			</@sec.authorize>
+	    </td>
+		<td width="60%" align="left" class="left_txt">最新通知： 家校通全新升级，欢迎使用！</td>
+		<td width="20%" align="right" nowrap="nowrap">
+			<a href="#">消息提醒：（2）</a>&nbsp;&nbsp;
+			<a href="admin_profile!edit.action" target="mainFrame">个人信息设置</a>&nbsp;&nbsp;
+			<a href="${base}/admin/logout" target="_top">退出</a>&nbsp;&nbsp;
+		</td>
+	  </tr>
+	</table>
 </body>
 </html>

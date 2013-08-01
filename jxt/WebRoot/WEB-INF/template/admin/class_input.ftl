@@ -29,34 +29,6 @@ $().ready( function() {
 	
 	var $citySel = $("#citySel");
 	var $districtSel = $("#districtSel");
-	
-	 function loadDistirct(cityid,districtid){
-	 	$districtSel.html('<option value="">请选择...</option>');
-		$.ajax({
-			url: "resource!ajaxGetDistrictByCityId.action",
-			data: {cityId: cityid},
-			type: "POST",
-			dataType: "json",
-			cache: false,
-			success: function(data) {
-				if(data && data!=null){
-					var option = "";
-					$.each(data, function(i) {
-						<@compress single_line = false>
-							if(districtid==data[i].id){
-								option += '<option value="'+data[i].id+'" selected>'+data[i].name+'</option>';
-							}else{
-								option += '<option value="'+data[i].id+'">'+data[i].name+'</option>';
-							}	     
-							
-						</@compress>
-					});
-					$districtSel.append(option);
-				}
-			}
-		});
-	}
-	
 	//级联地区
 	$citySel.change( function() {
 		$districtSel.html('<option value="">请选择...</option>');
@@ -78,8 +50,8 @@ $().ready( function() {
 				}
 			}
 		 });
-	 });	 
-	 	 
+	 });
+	 
 	 var $reset = $("#reset");
 	 $reset.click( function(){
 	 	<#if isAddAction>
@@ -119,8 +91,7 @@ $().ready( function() {
 			form.submit();
 		}
 	});
-	
-	loadDistirct('${(school.city.id)!}','${(school.district.id)!}');
+
 });
 </script>
 </head>
@@ -172,6 +143,12 @@ $().ready( function() {
 					<td>
 					
 						<select id="districtSel" name="school.district.id" class="selectText" title="所在区县">
+							<option value="">请选择...</option>
+							<#list districtList as district>
+									<option value="${(district.id)!}"  <#if (school.district.id)! == district.id>selected</#if>>
+										${(district.name)!}
+									</option>
+							</#list> 
 						</select>	
 						<label class="requireField">*</label>
 					</td>

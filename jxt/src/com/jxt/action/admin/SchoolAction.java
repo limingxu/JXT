@@ -9,11 +9,11 @@ import org.apache.struts2.convention.annotation.ParentPackage;
 
 import com.jxt.entity.Admin;
 import com.jxt.entity.Agent;
-import com.jxt.entity.City;
 import com.jxt.entity.District;
 import com.jxt.entity.School;
 import com.jxt.service.SchoolService;
 import com.opensymphony.xwork2.interceptor.annotations.InputConfig;
+import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.Validations;
 
@@ -64,11 +64,13 @@ public class SchoolAction extends BaseAction {
 	}
 	
 	@Validations(
-			requiredStrings = {
-				@RequiredStringValidator(fieldName = "school.name", message = "学校名不允许为空!"),
-				@RequiredStringValidator(fieldName = "school.city.id", message = "所在城市不允许为空"),
-				@RequiredStringValidator(fieldName = "school.district.id", message = "所在地区不允许为空")
-			}
+		requiredStrings = {
+			@RequiredStringValidator(fieldName = "school.name", message = "学校名不允许为空!")
+		},
+		requiredFields = {
+			@RequiredFieldValidator(fieldName = "school.city.id", message = "所在城市不允许为空"),
+			@RequiredFieldValidator(fieldName = "school.district.id", message = "所在地区不允许为空")
+		}
 	)
   @InputConfig(resultName = "error")
   public String save() {

@@ -21,6 +21,8 @@ public interface BaseService<T, PK extends Serializable> {
 	
 	public List<T> getAll();
 	
+	public List<T> getActiveAll();
+	
 	/**
 	 * 保存实体对象
 	 * 

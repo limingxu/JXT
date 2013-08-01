@@ -99,9 +99,6 @@ $().ready( function() {
 			</div>
 			<table id="listTable" class="listTable">
 				<tr>
-					<th class="check">
-						<input type="checkbox" class="allCheck" />
-					</th>
 					<th>
 						<p name="username" hidefocus>学校名称</p>
 					</th>
@@ -125,9 +122,6 @@ $().ready( function() {
 					<#list pager.result as classes>
 					<tr> 
 						<td>
-							<input type="checkbox" name="ids" value="1" />
-						</td>
-						<td>
 							${(classes.school.name)!}
 						</td>
 						<td>
@@ -143,17 +137,14 @@ $().ready( function() {
 							${(classes.name)!}
 						</td>
 						<td>
-							<a href="school!edit.action?id=${(school.id)!}" title="修改">[修改]</a>
-							<a href="school!cancel.action?id=${(school.id)!}" title="取消">[取消]</a>
+							<a href="class!edit.action?id=${(classes.id)!}" title="修改">[修改]</a>
+							<a href="class!cancel.action?id=${(classes.id)!}" title="取消">[取消]</a>
 						</td>
 					</tr>
 			    </#list> 
 			</table>
 			<#if (pager.result?size > 0)>
 				<div class="pagerBar">
-					<div class="delete">
-						<input type="button" id="deleteButton" class="formButton" url="admin!delete.action" value="取消" disabled hidefocus />
-					</div>
 					<div class="pager">
 						<#include "/WEB-INF/template/admin/pager.ftl" />
 					</div>

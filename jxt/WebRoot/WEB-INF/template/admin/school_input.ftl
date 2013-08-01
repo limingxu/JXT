@@ -30,56 +30,50 @@ $().ready( function() {
 	var $citySel = $("#citySel");
 	var $districtSel = $("#districtSel");
 	
-	 function loadDistirct(cityid,districtid){
-	 	$districtSel.html('<option value="">请选择...</option>');
-		$.ajax({
-			url: "resource!ajaxGetDistrictByCityId.action",
-			data: {cityId: cityid},
-			type: "POST",
-			dataType: "json",
-			cache: false,
-			success: function(data) {
-				if(data && data!=null){
-					var option = "";
-					$.each(data, function(i) {
-						<@compress single_line = false>
-							if(districtid==data[i].id){
-								option += '<option value="'+data[i].id+'" selected>'+data[i].name+'</option>';
-							}else{
-								option += '<option value="'+data[i].id+'">'+data[i].name+'</option>';
-							}	     
-							
-						</@compress>
-					});
-					$districtSel.append(option);
-				}
-			}
-		});
-	}
 	
 	//级联地区
 	$citySel.change( function() {
-		$districtSel.html('<option value="">请选择...</option>');
+		var city_id =$citySel.val();
+	    var city_id_request=  '${(classes.school.city.id)!}' ;
+	    $districtSel.html('<option value="">请选择...</option>');
+	    
+	    if(city_id == ''){
+	    	if(city_id_request == ''){
+	    		$districtSel.attr("disabled", true);
+	    		return;
+	    	}else{
+	    		city_id = city_id_request;
+	    	}
+	    }else{
+	    	$districtSel.attr("disabled", false);
+	    }
+	    
 		$.ajax({
 			url: "resource!ajaxGetDistrictByCityId.action",
-			data: {cityId: $citySel.val()},
+			data: {cityId: city_id},
 			type: "POST",
 			dataType: "json",
 			cache: false,
 			success: function(data) {
 				if (data != null) {
 					var option = "";
+					var district_id = '${(classes.school.district.id)!}' ;
 					$.each(data, function(i) {
 						<@compress single_line = false>
-							option += '<option value="'+data[i].id+'">'+data[i].name+'</option>';
+							if(district_id==data[i].id)
+								option += '<option value="'+data[i].id+'" selected>'+data[i].name+'</option>';
+							else
+								option += '<option value="'+data[i].id+'">'+data[i].name+'</option>';
 						</@compress>
 					});
 					$districtSel.append(option);
 				}
 			}
 		 });
-	 });	 
-	 	 
+	 });
+	 
+	 $citySel.change();
+	
 	 var $reset = $("#reset");
 	 $reset.click( function(){
 	 	<#if isAddAction>
@@ -119,8 +113,6 @@ $().ready( function() {
 			form.submit();
 		}
 	});
-	
-	loadDistirct('${(school.city.id)!}','${(school.district.id)!}');
 });
 </script>
 </head>

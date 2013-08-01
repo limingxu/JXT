@@ -19,32 +19,43 @@ $().ready( function() {
 	var $validateErrorLabelContainer = $("#validateErrorContainer ul");
 	var $validateForm = $("#validateForm");
 	
-	var $tab = $("#tab");
-
-	// Tab效果
-	$tab.tabs(".tabContent", {
-		tabs: "input"
-	});
-	
 	var $citySel = $("#citySel");
 	var $districtSel = $("#districtSel");
-	var $schoolSel = $("#schoolSel");
+	
 	
 	//级联地区
 	$citySel.change( function() {
-		$districtSel.html('<option value="">请选择...</option>');
+		var city_id =$citySel.val();
+	    var city_id_request=  '${(classes.school.city.id)!}' ;
+	    $districtSel.html('<option value="">请选择...</option>');
+	    
+	    if(city_id == ''){
+	    	if(city_id_request == ''){
+	    		$districtSel.attr("disabled", true);
+	    		return;
+	    	}else{
+	    		city_id = city_id_request;
+	    	}
+	    }else{
+	    	$districtSel.attr("disabled", false);
+	    }
+	    
 		$.ajax({
 			url: "resource!ajaxGetDistrictByCityId.action",
-			data: {cityId: $citySel.val()},
+			data: {cityId: city_id},
 			type: "POST",
 			dataType: "json",
 			cache: false,
 			success: function(data) {
 				if (data != null) {
 					var option = "";
+					var district_id = '${(classes.school.district.id)!}' ;
 					$.each(data, function(i) {
 						<@compress single_line = false>
-							option += '<option value="'+data[i].id+'">'+data[i].name+'</option>';
+							if(district_id==data[i].id)
+								option += '<option value="'+data[i].id+'" selected>'+data[i].name+'</option>';
+							else
+								option += '<option value="'+data[i].id+'">'+data[i].name+'</option>';
 						</@compress>
 					});
 					$districtSel.append(option);
@@ -53,29 +64,52 @@ $().ready( function() {
 		 });
 	 });
 	 
+	 $citySel.change();
+	 
+	 var $schoolSel = $("#schoolSel");
 	 //级联学校
-	 $districtSel.change( function() {
-		$schoolSel.html('<option value="">请选择...</option>');
+	$districtSel.change( function() {
+		var district_id =$districtSel.val();
+	    var district_id_request=  '${(classes.school.district.id)!}' ;
+	    $schoolSel.html('<option value="">请选择...</option>');
+	    
+	    if(district_id == ''){
+	    	if(district_id_request == ''){
+	    		$schoolSel.attr("disabled", true);
+	    		return;
+	    	}else{
+	    		district_id = district_id_request;
+	    	}
+	    }else{
+	    	$schoolSel.attr("disabled", false);
+	    }
+	    
 		$.ajax({
 			url: "resource!ajaxSchools.action",
-			data: {cityId: $citySel.val(),districtId:$districtSel.val()},
+			data: {cityId: $citySel.val(),districtId:district_id},
 			type: "POST",
 			dataType: "json",
 			cache: false,
 			success: function(data) {
 				if (data != null) {
 					var option = "";
+					var school_id = '${(classes.school.id)!}' ;
 					$.each(data, function(i) {
 						<@compress single_line = false>
-							option += '<option value="'+data[i].id+'">'+data[i].name+'</option>';
+							if(school_id==data[i].id)
+								option += '<option value="'+data[i].id+'" selected>'+data[i].name+'</option>';
+							else
+								option += '<option value="'+data[i].id+'">'+data[i].name+'</option>';
 						</@compress>
 					});
 					$schoolSel.append(option);
 				}
 			}
 		 });
+		 
 	 });
-	 	 
+	 $districtSel.change();
+	 
 	 var $reset = $("#reset");
 	 $reset.click( function(){
 	 	<#if isAddAction>
@@ -85,36 +119,8 @@ $().ready( function() {
 	 	</#if>
 	 });
 	
-	function loadDistirct(cityid,districtid){
-	 	$districtSel.html('<option value="">请选择...</option>');
-		$.ajax({
-			url: "resource!ajaxGetDistrictByCityId.action",
-			data: {cityId: cityid},
-			type: "POST",
-			dataType: "json",
-			cache: false,
-			success: function(data) {
-				if(data && data!=null){
-					var option = "";
-					$.each(data, function(i) {
-						<@compress single_line = false>
-							if(districtid==data[i].id){
-								option += '<option value="'+data[i].id+'" selected>'+data[i].name+'</option>';
-							}else{
-								option += '<option value="'+data[i].id+'">'+data[i].name+'</option>';
-							}	     
-							
-						</@compress>
-					});
-					$districtSel.append(option);
-				}
-			}
-		});
-	}
 	
-	loadDistirct('${(classes.school.city.id)!}','${(classes.school.district.id)!}');
-	
-		// 表单验证
+	// 表单验证
 	$validateForm.validate({
 		errorContainer: $validateErrorContainer,
 		errorLabelContainer: $validateErrorLabelContainer,
@@ -154,7 +160,7 @@ $().ready( function() {
 		<ul></ul>
 	</div>
 	<div class="body">
-		<form id="validateForm" action="<#if isAddAction>class!save.action<#else>school!update.action</#if>" method="post">
+		<form id="validateForm" action="<#if isAddAction>class!save.action<#else>class!update.action</#if>" method="post">
 			<input type="hidden" name="classes.id" value="${(classes.id)!}" />
 			<ul id="tab" class="tab">
 				<li>
@@ -217,7 +223,7 @@ $().ready( function() {
 						班级名称: 
 					</th>
 					<td>
-						<input type="text" title="班级名称" name="classes.name" value=""  class="formText"/>
+						<input type="text" title="班级名称" name="classes.name" value="${(classes.name)!}"  class="formText"/>
 						<label class="requireField">*</label>
 					</td>
 				</tr>

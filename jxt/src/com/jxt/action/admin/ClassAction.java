@@ -50,7 +50,7 @@ public class ClassAction extends BaseAction {
 	
 	public String update() {
 		if(classes==null || classes.getId()==null){
-			addActionError("您需要修改的学校不存在，请确认");
+			addActionError("您需要修改的班级不存在，请确认");
 			return ERROR;
 		}
 		
@@ -60,7 +60,7 @@ public class ClassAction extends BaseAction {
 //		}
 		
 		classesService.update(classes);
-		redirectUrl = "school!list.action";
+		redirectUrl = "class!list.action";
 		return SUCCESS;
 	}
 	

@@ -63,7 +63,12 @@ public class BaseServiceImpl<T, PK extends Serializable> implements BaseService<
 	public List<T> getAll() {
 		return baseDao.getAll();
 	}
-
+	
+	@Override
+	public List<T> getActiveAll() {
+		return baseDao.getActiveAll();
+	}
+	
 	@Override
 	public Pager pagerByPropertyLike(Pager pager) {
 		String property = pager.getSearchBy();
@@ -71,4 +76,6 @@ public class BaseServiceImpl<T, PK extends Serializable> implements BaseService<
 		Pagination<T> pagination = baseDao.getPaginationByPropertyLike(property, value, pager.getPageNumber(), pager.getPageSize());
 		return Pager.pagination2pager(pagination, pager);
 	}
+
+
 }

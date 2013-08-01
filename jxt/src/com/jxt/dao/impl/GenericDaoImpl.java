@@ -21,9 +21,11 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
 
 import com.jxt.dao.GenericDao;
+import com.jxt.entity.BaseEntity;
 import com.jxt.hql.HqlParams;
 import com.jxt.hql.HqlUtil;
 import com.jxt.hql.Pagination;
+import com.jxt.hql.Param;
 import com.jxt.util.StringUtil;
 import com.jxt.util.ValidateUtil;
 @SuppressWarnings("unchecked")
@@ -82,6 +84,14 @@ public class GenericDaoImpl<T, K extends Serializable> extends HibernateDaoSuppo
 		return findByHql(hql,null);
 	}
 	
+	@Override
+	public List<T> getActiveAll() {
+		String hql ="select a from "+type.getName()+" a where status=:status";
+		HqlParams params = new HqlParams();
+		params.add(new Param("status", BaseEntity.ACTIVE));
+		
+		return findByHql(hql, params.getProperties());
+	}
 
 	/*
 	 * (non-Javadoc)
@@ -421,5 +431,7 @@ public class GenericDaoImpl<T, K extends Serializable> extends HibernateDaoSuppo
 		String countHql = HqlUtil.generateCountHql(hql);
 		return getPagination(countHql, hql, params.getProperties(), currentPage, pageSize);
 	}
+
+
 }
 

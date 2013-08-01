@@ -18,7 +18,10 @@ public interface GenericDao<T, K extends Serializable>
     T get( K id );
     
     public List<T> getAll();
-
+    
+    
+    public List<T> getActiveAll();
+    
     /**
      * Persist the newInstance object into database
      * 

@@ -65,7 +65,7 @@ $().ready( function() {
 			}
 		});
 	}
-	loadDistirct('${(class.school.city.id)!}','${(class.school.district.id)!}');
+	loadDistirct('${(classes.school.city.id)!}','${(classes.school.district.id)!}');
 	 
 });
 </script>
@@ -80,15 +80,15 @@ $().ready( function() {
 		<form id="listForm" action="admin!list.action" method="post">
 			<div class="listBar">
 				行政区域：&nbsp;&nbsp;
-				<select id="citySel" name="class.school.city.id">
+				<select id="citySel" name="classes.school.city.id">
 					<option value="">请选择...</option>
 					<#list cityList as city>
-						<option value="${(city.id)!}"  <#if (class.school.city.id)! == city.id>selected</#if>>
+						<option value="${(city.id)!}"  <#if (classes.school.city.id)! == city.id>selected</#if>>
 								${(city.name)!}
 						</option>			
 					</#list>
 				</select>&nbsp;&nbsp;
-				<select id="districtSel" name="class.school.district.id" class="selectText" title="所在区县">
+				<select id="districtSel" name="classes.school.district.id" class="selectText" title="所在区县">
 					<option value="">请选择...</option>
 				</select>&nbsp;&nbsp;&nbsp;&nbsp;
 				学校名称：&nbsp;&nbsp;
@@ -122,25 +122,25 @@ $().ready( function() {
 						<span>操作</span>
 					</th>
 				</tr>
-					<#list pager.result as school>
+					<#list pager.result as classes>
 					<tr> 
 						<td>
 							<input type="checkbox" name="ids" value="1" />
 						</td>
 						<td>
-							${(class.school.name)!}
+							${(classes.school.name)!}
 						</td>
 						<td>
-							${(school.city.name)!}-${(school.district.name)!}
+							${(classes.school.city.name)!}-${(classes.school.district.name)!}
 						</td>
 						<td>
-							${(class.grade.phase)!}
+							${(classes.grade.phase)!}
 						</td>
 						<td>
-							${(class.grade.name)!}
+							${(classes.grade.name)!}
 						</td>
 						<td>
-							${(class.name)!}
+							${(classes.name)!}
 						</td>
 						<td>
 							<a href="school!edit.action?id=${(school.id)!}" title="修改">[修改]</a>

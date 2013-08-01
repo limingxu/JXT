@@ -385,7 +385,7 @@ public class BaseAction extends ActionSupport {
 		BaseAction.cityMap = cityMap;
 	}
 
-	public static List<Grade> getGradeList() {
+	public  List<Grade> getGradeList() {
 		return gradeList;
 	}
 
@@ -393,7 +393,7 @@ public class BaseAction extends ActionSupport {
 		BaseAction.gradeList = gradeList;
 	}
 
-	public static List<District> getDistrictList() {
+	public  List<District> getDistrictList() {
 		return districtList;
 	}
 

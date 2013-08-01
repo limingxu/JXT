@@ -72,7 +72,7 @@ public class ClassAction extends BaseAction {
 				@RequiredFieldValidator(fieldName = "classes.school.city.id", message = "所在城市不允许为空"),
 				@RequiredFieldValidator(fieldName = "classes.school.district.id", message = "所在地区不允许为空"),
 				@RequiredFieldValidator(fieldName = "classes.grade.id", message = "班级所在年级"),
-				@RequiredFieldValidator(fieldName = "classes.school.id", message = "学校名不允许为空!"),
+				@RequiredFieldValidator(fieldName = "classes.school.id", message = "学校名不允许为空!")
 			}
 		)
 	  @InputConfig(resultName = "error")

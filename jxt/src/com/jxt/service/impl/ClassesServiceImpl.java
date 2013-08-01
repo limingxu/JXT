@@ -1,5 +1,7 @@
 package com.jxt.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -10,6 +12,7 @@ import com.jxt.dao.ClassesDao;
 import com.jxt.entity.Admin;
 import com.jxt.entity.Classes;
 import com.jxt.service.ClassesService;
+import com.jxt.util.ValidateUtil;
 @Service("classesServiceImpl")
 public class ClassesServiceImpl extends BaseServiceImpl<Classes, Long> implements ClassesService {
 
@@ -28,6 +31,15 @@ public class ClassesServiceImpl extends BaseServiceImpl<Classes, Long> implement
 
 	@Transactional(readOnly=true)
 	public Pager getAllClasses(Admin admin, Pager pager) {
-		return classesDao.getAllClassedByAdmin(admin, pager);
+		pager = classesDao.getAllClassedByAdmin(admin, pager);
+//		List<Classes> list = (List<Classes>) pager.getResult();
+//		if(ValidateUtil.isEmpty(list)){
+//			for(Classes cls : list){
+//				cls.getSchool().getName();
+//				cls.getGrade().getName();
+//				cls.getSchool().getName();
+//			}
+//		}
+		return pager;
 	}
 }

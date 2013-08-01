@@ -15,8 +15,7 @@ import com.jxt.util.StringUtil;
 @Repository(value="classesDaoImpl")
 public class ClassesDaoImpl extends GenericDaoImpl<Classes,Long> implements ClassesDao {
 	
-	private static final String get_all_school_by_admin = 
-		" select s from Classes c,AdminSchool a where c.school.id =a.school.id and a.admin.id=:id and s.status=:status";
+	private static final String get_all_school_by_admin = "select c from Classes c,AdminSchool a where c.school.id =a.school.id and a.admin.id=:id and c.status=:status";
 	
 	@Override
 	public Pager getAllClassedByAdmin(Admin admin, Pager pager) {

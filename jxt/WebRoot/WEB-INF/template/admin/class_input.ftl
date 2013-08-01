@@ -202,20 +202,13 @@ $().ready( function() {
 						班级所在年级: 
 					</th>
 					<td>
-						 <#-- 
 						  <select id="classSel" name="classes.grade.id" title="班级所在年级">
 									<option value="">请选择...</option>
-									<#list gradeList as gradeas>
-										<option value="${(gradeas)!}"  <#if (classes.grade.id)! == gradeas.id>selected</#if>>
-												${(gradeas)!}
+									<#list gradeList as grade>
+										<option value="${(grade.id)!}"  <#if (classes.grade.id)! == grade.id>selected</#if>>
+												${(grade.name)!}
 										</option>			
-									</#list>
-						</select>&nbsp;&nbsp;
-						 -->
-						<select id="classSel" name="classes.grade.id" title="班级所在年级">
-							<option value="">请选择...</option>
-							<option value="10">初一</option>
-						</select>
+							</#list>
 						<label class="requireField">*</label>
 					</td>
 				</tr>

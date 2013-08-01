@@ -1,8 +1,5 @@
 package com.jxt.action.admin;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import javax.annotation.Resource;
 
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -11,14 +8,12 @@ import com.jxt.common.AdminType;
 import com.jxt.entity.Admin;
 import com.jxt.entity.Agent;
 import com.jxt.entity.BaseEntity;
-import com.jxt.entity.District;
 import com.jxt.entity.School;
 import com.jxt.service.SchoolService;
 import com.opensymphony.xwork2.interceptor.annotations.InputConfig;
 import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.Validations;
-//github.com/limingxu/JXT.git
 
 
 @ParentPackage("admin")
@@ -34,8 +29,6 @@ public class SchoolAction extends BaseAction {
 	
 	@Resource(name="schoolServiceImpl")
 	private SchoolService schoolService;
-	
-	private Set<District> districtList = new HashSet<District>();
 	
 	// 列表
 	public String list() {

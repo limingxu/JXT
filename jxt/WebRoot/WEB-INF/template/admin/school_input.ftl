@@ -34,7 +34,7 @@ $().ready( function() {
 	//级联地区
 	$citySel.change( function() {
 		var city_id =$citySel.val();
-	    var city_id_request=  '${(classes.school.city.id)!}' ;
+	    var city_id_request=  '${(school.city.id)!}' ;
 	    $districtSel.html('<option value="">请选择...</option>');
 	    
 	    if(city_id == ''){
@@ -57,7 +57,7 @@ $().ready( function() {
 			success: function(data) {
 				if (data != null) {
 					var option = "";
-					var district_id = '${(classes.school.district.id)!}' ;
+					var district_id = '${(school.district.id)!}' ;
 					$.each(data, function(i) {
 						<@compress single_line = false>
 							if(district_id==data[i].id)

@@ -160,10 +160,10 @@ H1 a {
 	          <li><a href="message!send.action" target="mainFrame">发送通知</a></li>
 	        </@sec.authorize>
 	        <@sec.authorize ifAnyGranted="ROLE_SYS_ADMIN">
-	          <li><a href="role!list.action" target="mainFrame">发送学生成绩</a></li>
+	          <li><a href="admin!list.action" target="mainFrame">发送学生成绩</a></li>
 	        </@sec.authorize>
 	        <@sec.authorize ifAnyGranted="ROLE_SYS_ADMIN">
-	          <li><a href="role!list.action" target="mainFrame">短信发送查询</a></li>
+	          <li><a href="admin!add.action" target="mainFrame">短信发送查询</a></li>
 	        </@sec.authorize>
 	        </ul>
 	      </div>
@@ -182,16 +182,16 @@ H1 a {
 	          <li><a href="school!list.action" target="mainFrame">学校管理</a></li>
 	        </@sec.authorize>
 	        <@sec.authorize ifAnyGranted="ROLE_SYS_ADMIN">
-	          <li><a href="role!list.action" target="mainFrame">教师管理</a></li>
+	          <li><a href="school!list.action" target="mainFrame">教师管理</a></li>
 	        </@sec.authorize>
 	        <@sec.authorize ifAnyGranted="ROLE_SYS_ADMIN">
-	          <li><a href="role!list.action" target="mainFrame">学校信息员管理</a></li>
+	          <li><a href="school!list.action" target="mainFrame">学校信息员管理</a></li>
 	        </@sec.authorize>
 	        <@sec.authorize ifAnyGranted="ROLE_SYS_ADMIN">
-	          <li><a href="role!list.action" target="mainFrame">班级管理</a></li>
+	          <li><a href="school!list.action" target="mainFrame">班级管理</a></li>
 	        </@sec.authorize>
 	        <@sec.authorize ifAnyGranted="ROLE_SYS_ADMIN">
-	          <li><a href="role!list.action" target="mainFrame">学生家长管理</a></li>
+	          <li><a href="school!list.action" target="mainFrame">学生家长管理</a></li>
 	        </@sec.authorize>
 	        </ul>
 	      </div>
@@ -210,7 +210,7 @@ H1 a {
 			  <li><a href="admin!list.action" target="mainFrame">查询服务状态</a></li>
 			</@sec.authorize>
 			<@sec.authorize ifAnyGranted="ROLE_SYS_ADMIN">
-	          <li><a href="role!list.action" target="mainFrame">代理商管理</a></li>
+	          <li><a href="admin!list.action" target="mainFrame">代理商管理</a></li>
 	        </@sec.authorize>
 	        </ul>
 	      </div>
@@ -226,7 +226,7 @@ H1 a {
 	        </table>
 	        <ul class="MM">
 	        <@sec.authorize ifAnyGranted="ROLE_SYS_ADMIN">
-	          <li><a href="#" target="main">人员管理</a></li>
+	          <li><a href="#" target="mainFrame">人员管理</a></li>
 	        </@sec.authorize>
 	        </ul>
 	      </div>
@@ -242,7 +242,7 @@ H1 a {
 	          </table>
 	        <ul class="MM">
 	        <@sec.authorize ifAnyGranted="ROLE_SYS_ADMIN">
-	          <li><a href="#" target="main">公告及申请</a></li>
+	          <li><a href="#" target="mainFrame">公告及申请</a></li>
 	        </@sec.authorize>
 	        </ul>
 	      </div>

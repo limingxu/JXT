@@ -22,6 +22,7 @@ import com.jxt.entity.Admin;
 import com.jxt.entity.BusiStatus;
 import com.jxt.entity.City;
 import com.jxt.entity.District;
+import com.jxt.entity.Grade;
 import com.jxt.entity.SmsStatus;
 import com.jxt.service.AdminService;
 import com.jxt.util.JsonUtil;
@@ -54,15 +55,14 @@ public class BaseAction extends ActionSupport {
 	protected static List<SmsStatus> smsStatusList = new ArrayList<SmsStatus>();
 	/**行政区域请使用city.districts*/
 	protected static List<City> cityList = new ArrayList<City>();
+	protected static List<Grade> gradeList = new ArrayList<Grade>();
+	protected static List<District> districtList = new ArrayList<District>();
 	
 	protected static Map<String,BusiStatus> busiStatusMap = new HashMap<String,BusiStatus>();
 	protected static Map<String,SmsStatus> smsStatusMap = new HashMap<String,SmsStatus>();
 	protected static Map<Long,City> cityMap = new HashMap<Long,City>();
-	
-	/*方便与city关联*/
-	private Set<District> districtList;
-	
-	
+	protected static Map<Long,Grade> gradeMap = new HashMap<Long,Grade>();
+	protected static Map<Long,District> districtMap = new HashMap<Long,District>();
 	
 	// 操作状态（警告,错误、成功）
 	public enum Status {
@@ -384,14 +384,37 @@ public class BaseAction extends ActionSupport {
 	public static void setCityMap(Map<Long, City> cityMap) {
 		BaseAction.cityMap = cityMap;
 	}
-	
-	public Set<District> getDistrictList() {
+
+	public static List<Grade> getGradeList() {
+		return gradeList;
+	}
+
+	public static void setGradeList(List<Grade> gradeList) {
+		BaseAction.gradeList = gradeList;
+	}
+
+	public static List<District> getDistrictList() {
 		return districtList;
 	}
 
-	public void setDistrictList(Set<District> districtList) {
-		this.districtList = districtList;
+	public static void setDistrictList(List<District> districtList) {
+		BaseAction.districtList = districtList;
 	}
-	
+
+	public static Map<Long, Grade> getGradeMap() {
+		return gradeMap;
+	}
+
+	public static void setGradeMap(Map<Long, Grade> gradeMap) {
+		BaseAction.gradeMap = gradeMap;
+	}
+
+	public static Map<Long, District> getDistrictMap() {
+		return districtMap;
+	}
+
+	public static void setDistrictMap(Map<Long, District> districtMap) {
+		BaseAction.districtMap = districtMap;
+	}
 	
 }

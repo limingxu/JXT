@@ -1,5 +1,7 @@
 package com.jxt.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -37,9 +39,14 @@ public class SchoolServiceImpl extends BaseServiceImpl<School, Long> implements 
 		adminSchoolDao.save(adminSchool);
 	}
 
-	@Override
+	@Transactional(readOnly=true)
 	public Pager getAllSchools(Admin admin, Pager pager) {
 		 pager = schoolDao.getAllSchoolByAdmin(admin,pager);
 		return pager;
+	}
+
+	@Transactional(readOnly=true)
+	public List<School> getAllSchools(Long cityId, Long districtId) {
+		return this.schoolDao.getAllSchool(cityId, districtId);
 	}
 }

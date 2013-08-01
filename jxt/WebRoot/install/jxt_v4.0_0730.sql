@@ -384,6 +384,25 @@ CREATE TABLE `grade` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+DELETE FROM `grade`;
+
+INSERT INTO `grade` VALUES ('1', NOW(), NOW(), '幼儿园', '幼班');
+INSERT INTO `grade` VALUES ('2', NOW(), NOW(), '幼儿园', '中班');
+INSERT INTO `grade` VALUES ('3', NOW(), NOW(), '幼儿园', '大班');
+INSERT INTO `grade` VALUES ('4', NOW(), NOW(), '小学', '一年级');
+INSERT INTO `grade` VALUES ('5', NOW(), NOW(), '小学', '二年级');
+INSERT INTO `grade` VALUES ('6', NOW(), NOW(), '小学', '三年级');
+INSERT INTO `grade` VALUES ('7', NOW(), NOW(), '小学', '四年级');
+INSERT INTO `grade` VALUES ('8', NOW(), NOW(), '小学', '五年级');
+INSERT INTO `grade` VALUES ('9', NOW(), NOW(), '小学', '六年级');
+INSERT INTO `grade` VALUES ('10', NOW(), NOW(), '初中', '初一');
+INSERT INTO `grade` VALUES ('11', NOW(), NOW(), '初中', '初二');
+INSERT INTO `grade` VALUES ('13', NOW(), NOW(), '初中', '初三');
+INSERT INTO `grade` VALUES ('14', NOW(), NOW(), '高中', '高一');
+INSERT INTO `grade` VALUES ('15', NOW(), NOW(), '高中', '高二');
+INSERT INTO `grade` VALUES ('16', NOW(), NOW(), '高中', '高三');
+
+
 -- ----------------------------
 -- Records of grade
 -- ----------------------------

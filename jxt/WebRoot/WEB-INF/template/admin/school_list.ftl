@@ -27,17 +27,17 @@
 						<input type="checkbox" class="allCheck" />
 					</th>
 					<th>
-						<a href="#" class="sort" name="username" hidefocus>学校名称</a>
+						<p name="username" hidefocus>学校名称</p>
 					</th>
 					<th>
-						<a href="#" class="sort" name="email" hidefocus>所属代理商</a>
+						<p name="email" hidefocus>所属代理商</p>
 					</th>
 					<th>
-						<a href="#" class="sort" name="name" hidefocus>行政区域</a>
+						<p name="name" hidefocus>行政区域</p>
 					</th>
 					
 					<th>
-						<a href="#" class="sort" name="loginDate" hidefocus>联系方式</a>
+						<p name="loginDate" hidefocus>联系方式</p>
 					</th>
 					<th>
 						<span>操作</span>

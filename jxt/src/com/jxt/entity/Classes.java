@@ -23,7 +23,7 @@ public class Classes extends com.jxt.entity.BaseEntity implements
 	private School school;
 	private Grade grade;
 	private String name;
-	private Integer status;
+	private Integer status = ACTIVE;
 	private String description;
 	private Set<Student> students = new HashSet<Student>(0);
 
@@ -65,7 +65,7 @@ public class Classes extends com.jxt.entity.BaseEntity implements
 		this.status = status;
 	}
 
-	@Column(nullable = false, length = 2000)
+	@Column(length = 2000)
 	public String getDescription() {
 		return this.description;
 	}

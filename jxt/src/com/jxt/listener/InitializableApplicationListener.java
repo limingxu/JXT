@@ -15,9 +15,13 @@ import org.springframework.web.context.ServletContextAware;
 import com.jxt.action.admin.BaseAction;
 import com.jxt.entity.BusiStatus;
 import com.jxt.entity.City;
+import com.jxt.entity.District;
+import com.jxt.entity.Grade;
 import com.jxt.entity.SmsStatus;
 import com.jxt.service.BusiStatusService;
 import com.jxt.service.CityService;
+import com.jxt.service.DistrictService;
+import com.jxt.service.GradeService;
 import com.jxt.service.SmsStatusService;
 
 
@@ -30,6 +34,12 @@ public class InitializableApplicationListener implements ApplicationListener, Se
 	private SmsStatusService smsStatusService;
 	@Resource(name="busiStatusServiceImpl")
 	private BusiStatusService busiStatusService;
+	
+	@Resource(name="gradeServiceImpl")
+	private GradeService gradeService;
+	
+	@Resource(name="districtServiceImpl")
+	private DistrictService districtService;
 	
 	private ServletContext servletContext;
 	private static boolean isInit = false;
@@ -69,6 +79,29 @@ public class InitializableApplicationListener implements ApplicationListener, Se
 				}
 				BaseAction.setBusiStatusMap(map);
 			}
+			
+			List<Grade> gradeList = gradeService.getAll();
+			if(gradeList!=null && gradeList.size()>0){}{
+				BaseAction.setGradeList(gradeList);
+				
+				Map<Long,Grade> map = new HashMap<Long,Grade>();
+				for(Grade grade : gradeList){
+					map.put(grade.getId(), grade);
+				}
+				BaseAction.setGradeMap(map);
+			}
+			
+			List<District> districtList = districtService.getAll();
+			if(gradeList!=null && gradeList.size()>0){}{
+				BaseAction.setDistrictList(districtList);
+				
+				Map<Long,District> map = new HashMap<Long,District>();
+				for(District district : districtList){
+					map.put(district.getId(), district);
+				}
+				BaseAction.setDistrictMap(map);
+			}
+			
 			isInit = true;
 		}
 	}

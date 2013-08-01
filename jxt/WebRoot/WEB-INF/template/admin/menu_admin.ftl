@@ -182,13 +182,13 @@ H1 a {
 	          <li><a href="school!list.action" target="mainFrame">学校管理</a></li>
 	        </@sec.authorize>
 	        <@sec.authorize ifAnyGranted="ROLE_SYS_ADMIN">
-	          <li><a href="role!list.action" target="mainFrame">教师管理</a></li>
+	          <li><a href="teacher!list.action" target="mainFrame">教师管理</a></li>
 	        </@sec.authorize>
 	        <@sec.authorize ifAnyGranted="ROLE_SYS_ADMIN">
 	          <li><a href="role!list.action" target="mainFrame">学校信息员管理</a></li>
 	        </@sec.authorize>
 	        <@sec.authorize ifAnyGranted="ROLE_SYS_ADMIN">
-	          <li><a href="role!list.action" target="mainFrame">班级管理</a></li>
+	          <li><a href="class!list.action" target="mainFrame">班级管理</a></li>
 	        </@sec.authorize>
 	        <@sec.authorize ifAnyGranted="ROLE_SYS_ADMIN">
 	          <li><a href="role!list.action" target="mainFrame">学生家长管理</a></li>

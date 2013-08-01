@@ -1,5 +1,7 @@
 package com.jxt.dao.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Repository;
 
 import com.jxt.common.Pager;
@@ -39,6 +41,20 @@ public class SchoolDaoImpl extends GenericDaoImpl<School,Long> implements School
 		Pagination<School> pagination =  getPagination(countHql, hql, params.getProperties(),pager.getPageNumber(), pager.getPageSize());
 		
 		return Pager.pagination2pager(pagination, pager);
+	}
+
+
+	@Override
+	public List<School> getAllSchool(Long cityId, Long districtId) {
+		String hql = "select s from School s where s.city.id=:cityid and s.district.id=:disid and status=:status";
+		HqlParams params = new HqlParams();
+		params.add("cityid",cityId);
+		params.add("disid",districtId);
+		params.add("status",BaseEntity.ACTIVE);
+		
+		List<School> schoolList=findByHql(hql, params.getProperties());
+		return schoolList;
+		
 	}
 	
 }

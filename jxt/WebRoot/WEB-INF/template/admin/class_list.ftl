@@ -10,6 +10,66 @@
 <script type="text/javascript" src="${base}/template/common/js/jquery.pager.js"></script>
 <script type="text/javascript" src="${base}/template/admin/js/base.js"></script>
 <script type="text/javascript" src="${base}/template/admin/js/admin.js"></script>
+
+<script type="text/javascript">
+$().ready( function() {
+	var $citySel = $("#citySel");
+	var $districtSel = $("#districtSel");
+	
+		//级联地区
+	$citySel.change( function() {
+		$districtSel.html('<option value="">请选择...</option>');
+		$.ajax({
+			url: "resource!ajaxGetDistrictByCityId.action",
+			data: {cityId: $citySel.val()},
+			type: "POST",
+			dataType: "json",
+			cache: false,
+			success: function(data) {
+				if (data != null) {
+					var option = "";
+					$.each(data, function(i) {
+						<@compress single_line = false>
+							option += '<option value="'+data[i].id+'">'+data[i].name+'</option>';
+						</@compress>
+					});
+					$districtSel.append(option);
+				}
+			}
+		 });
+	 });
+	 
+	  function loadDistirct(cityid,districtid){
+	 	$districtSel.html('<option value="">请选择...</option>');
+		$.ajax({
+			url: "resource!ajaxGetDistrictByCityId.action",
+			data: {cityId: cityid},
+			type: "POST",
+			dataType: "json",
+			cache: false,
+			success: function(data) {
+				if(data && data!=null){
+					var option = "";
+					$.each(data, function(i) {
+						<@compress single_line = false>
+							if(districtid==data[i].id){
+								option += '<option value="'+data[i].id+'" selected>'+data[i].name+'</option>';
+							}else{
+								option += '<option value="'+data[i].id+'">'+data[i].name+'</option>';
+							}	     
+							
+						</@compress>
+					});
+					$districtSel.append(option);
+				}
+			}
+		});
+	}
+	loadDistirct('${(class.school.city.id)!}','${(class.school.district.id)!}');
+	 
+});
+</script>
+
 </head>
 
 <body class="list">
@@ -19,7 +79,23 @@
 	<div class="body">
 		<form id="listForm" action="admin!list.action" method="post">
 			<div class="listBar">
-				<input type="button" class="formButton" onclick="location.href='school!add.action'" value="添加学校" hidefocus />
+				行政区域：&nbsp;&nbsp;
+				<select id="citySel" name="class.school.city.id">
+					<option value="">请选择...</option>
+					<#list cityList as city>
+						<option value="${(city.id)!}"  <#if (class.school.city.id)! == city.id>selected</#if>>
+								${(city.name)!}
+						</option>			
+					</#list>
+				</select>&nbsp;&nbsp;
+				<select id="districtSel" name="class.school.district.id" class="selectText" title="所在区县">
+					<option value="">请选择...</option>
+				</select>&nbsp;&nbsp;&nbsp;&nbsp;
+				学校名称：&nbsp;&nbsp;
+				<input type="text"  name="pager.keyword" value="${(pager.keyword)!}" />
+				<input type="button" id="searchButton" class="formButton" value="查询" hidefocus />
+				<input type="button" class="formButton" style="text-align:right;" onclick="location.href='class!add.action'" value="添加班级" hidefocus />
+				<input type="button" class="formButton" style="text-align:right;" onclick="location.href='class!batchAdd.action'" value="批量导入" hidefocus />
 			</div>
 			<table id="listTable" class="listTable">
 				<tr>
@@ -27,17 +103,20 @@
 						<input type="checkbox" class="allCheck" />
 					</th>
 					<th>
-						<a href="#" class="sort" name="username" hidefocus>学校名称</a>
-					</th>
-					<th>
-						<a href="#" class="sort" name="email" hidefocus>所属代理商</a>
-					</th>
-					<th>
-						<a href="#" class="sort" name="name" hidefocus>行政区域</a>
+						<p name="username" hidefocus>学校名称</p>
 					</th>
 					
 					<th>
-						<a href="#" class="sort" name="loginDate" hidefocus>联系方式</a>
+						<p name="name" hidefocus>行政区域</p>
+					</th>
+					<th>
+						<p name="email" hidefocus>学段</p>
+					</th>
+					<th>
+						<p name="loginDate" hidefocus>年级</p>
+					</th>
+					<th>
+						<p name="loginDate" hidefocus>班级名称</p>
 					</th>
 					<th>
 						<span>操作</span>
@@ -49,16 +128,19 @@
 							<input type="checkbox" name="ids" value="1" />
 						</td>
 						<td>
-							${(school.name)!}
-						</td>
-						<td>
-							${(school.agent.name)!}
+							${(class.school.name)!}
 						</td>
 						<td>
 							${(school.city.name)!}-${(school.district.name)!}
 						</td>
 						<td>
-							${(school.description)!}
+							${(class.grade.phase)!}
+						</td>
+						<td>
+							${(class.grade.name)!}
+						</td>
+						<td>
+							${(class.name)!}
 						</td>
 						<td>
 							<a href="school!edit.action?id=${(school.id)!}" title="修改">[修改]</a>
@@ -70,7 +152,7 @@
 			<#if (pager.result?size > 0)>
 				<div class="pagerBar">
 					<div class="delete">
-						<input type="button" id="deleteButton" class="formButton" url="admin!delete.action" value="删 除" disabled hidefocus />
+						<input type="button" id="deleteButton" class="formButton" url="admin!delete.action" value="取消" disabled hidefocus />
 					</div>
 					<div class="pager">
 						<#include "/WEB-INF/template/admin/pager.ftl" />

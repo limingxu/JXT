@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.jxt.common.Pager;
 import com.jxt.dao.AdminSchoolDao;
 import com.jxt.dao.SchoolDao;
 import com.jxt.entity.Admin;
@@ -25,7 +26,7 @@ public class SchoolServiceImpl extends BaseServiceImpl<School, Long> implements 
 		super.setBaseDao(schoolDao);
 	}
 
-	@Transactional(readOnly = true)
+	@Transactional
 	public void saveSchool(School school, Admin admin) {
 		schoolDao.save(school);
 		
@@ -34,5 +35,11 @@ public class SchoolServiceImpl extends BaseServiceImpl<School, Long> implements 
 		adminSchool.setSchool(school);
 		
 		adminSchoolDao.save(adminSchool);
+	}
+
+	@Override
+	public Pager getAllSchools(Admin admin, Pager pager) {
+		 pager = schoolDao.getAllSchoolByAdmin(admin,pager);
+		return pager;
 	}
 }

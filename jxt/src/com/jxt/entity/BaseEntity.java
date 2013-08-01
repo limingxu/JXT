@@ -26,6 +26,9 @@ public class BaseEntity implements Serializable {
 	protected Long id;// ID
 	protected Date createDate;// 创建日期
 	protected Date modifyDate;// 修改日期
+	
+	public  static final Integer ACTIVE =1;
+	public static final Integer  INACTIVE =0;
 
 	@Id
 	@Column(length = 32, nullable = true)

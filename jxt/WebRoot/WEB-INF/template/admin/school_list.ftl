@@ -43,30 +43,29 @@
 						<span>操作</span>
 					</th>
 				</tr>
-				
+					<#list pager.result as school>
 					<tr> 
 						<td>
 							<input type="checkbox" name="ids" value="1" />
 						</td>
 						<td>
-							南门小学
+							${(school.name)!}
 						</td>
 						<td>
-							锦佳科技
+							${(school.agent.name)!}
 						</td>
 						<td>
-							合肥 - 庐阳区
+							${(school.city.name)!}-${(school.district.name)!}
 						</td>
 						<td>
-							XXXXXXX
+							${(school.description)!}
 						</td>
 						<td>
-							<a href="school!edit.action?id=" title="修改">[修改]</a>
-							<a href="school!edit.action?id=" title="取消">[取消]</a>
+							<a href="school!edit.action?id=${(school.id)!}" title="修改">[修改]</a>
+							<a href="school!cancel.action?id=${(school.id)!}" title="取消">[取消]</a>
 						</td>
 					</tr>
-			    <!-- <#list pager.result as admin> -->
-				<!-- </#list> -->
+			    </#list> 
 			</table>
 			<#if (pager.result?size > 0)>
 				<div class="pagerBar">

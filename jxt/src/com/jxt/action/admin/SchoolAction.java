@@ -157,14 +157,4 @@ public class SchoolAction extends BaseAction {
 	public void setAgent(Agent agent) {
 		this.agent = agent;
 	}
-
-	public Set<District> getDistrictList() {
-		return districtList;
-	}
-
-	public void setDistrictList(Set<District> districtList) {
-		this.districtList = districtList;
-	}
-	
-	
 }

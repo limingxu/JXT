@@ -188,7 +188,7 @@ H1 a {
 	          <li><a href="role!list.action" target="mainFrame">学校信息员管理</a></li>
 	        </@sec.authorize>
 	        <@sec.authorize ifAnyGranted="ROLE_SYS_ADMIN">
-	          <li><a href="class!list.action" target="mainFrame">班级管理</a></li>
+	          <li><a href="role!list.action" target="mainFrame">班级管理</a></li>
 	        </@sec.authorize>
 	        <@sec.authorize ifAnyGranted="ROLE_SYS_ADMIN">
 	          <li><a href="role!list.action" target="mainFrame">学生家长管理</a></li>

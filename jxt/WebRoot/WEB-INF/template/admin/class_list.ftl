@@ -16,21 +16,40 @@ $().ready( function() {
 	var $citySel = $("#citySel");
 	var $districtSel = $("#districtSel");
 	
-		//级联地区
+	
+	//级联地区
 	$citySel.change( function() {
-		$districtSel.html('<option value="">请选择...</option>');
+		var city_id =$citySel.val();
+	    var city_id_request=  '${(classes.school.city.id)!}' ;
+	    $districtSel.html('<option value="">请选择...</option>');
+	    
+	    if(city_id == ''){
+	    	if(city_id_request == ''){
+	    		$districtSel.attr("disabled", true);
+	    		return;
+	    	}else{
+	    		city_id = city_id_request;
+	    	}
+	    }else{
+	    	$districtSel.attr("disabled", false);
+	    }
+	    
 		$.ajax({
 			url: "resource!ajaxGetDistrictByCityId.action",
-			data: {cityId: $citySel.val()},
+			data: {cityId: city_id},
 			type: "POST",
 			dataType: "json",
 			cache: false,
 			success: function(data) {
 				if (data != null) {
 					var option = "";
+					var district_id = '${(classes.school.district.id)!}' ;
 					$.each(data, function(i) {
 						<@compress single_line = false>
-							option += '<option value="'+data[i].id+'">'+data[i].name+'</option>';
+							if(district_id==data[i].id)
+								option += '<option value="'+data[i].id+'" selected>'+data[i].name+'</option>';
+							else
+								option += '<option value="'+data[i].id+'">'+data[i].name+'</option>';
 						</@compress>
 					});
 					$districtSel.append(option);
@@ -39,33 +58,51 @@ $().ready( function() {
 		 });
 	 });
 	 
-	  function loadDistirct(cityid,districtid){
-	 	$districtSel.html('<option value="">请选择...</option>');
+	 $citySel.change();
+	 
+	  var $schoolSel = $("#schoolSel");
+	 //级联学校
+	$districtSel.change( function() {
+		var district_id =$districtSel.val();
+	    var district_id_request=  '${(classes.school.district.id)!}' ;
+	    $schoolSel.html('<option value="">请选择...</option>');
+	    
+	    if(district_id == ''){
+	    	if(district_id_request == ''){
+	    		$schoolSel.attr("disabled", true);
+	    		return;
+	    	}else{
+	    		district_id = district_id_request;
+	    	}
+	    }else{
+	    	$schoolSel.attr("disabled", false);
+	    }
+	    
 		$.ajax({
-			url: "resource!ajaxGetDistrictByCityId.action",
-			data: {cityId: cityid},
+			url: "resource!ajaxSchools.action",
+			data: {cityId: $citySel.val(),districtId:district_id},
 			type: "POST",
 			dataType: "json",
 			cache: false,
 			success: function(data) {
-				if(data && data!=null){
+				if (data != null) {
 					var option = "";
+					var school_id = '${(classes.school.id)!}' ;
 					$.each(data, function(i) {
 						<@compress single_line = false>
-							if(districtid==data[i].id){
+							if(school_id==data[i].id)
 								option += '<option value="'+data[i].id+'" selected>'+data[i].name+'</option>';
-							}else{
+							else
 								option += '<option value="'+data[i].id+'">'+data[i].name+'</option>';
-							}	     
-							
 						</@compress>
 					});
-					$districtSel.append(option);
+					$schoolSel.append(option);
 				}
 			}
-		});
-	}
-	loadDistirct('${(classes.school.city.id)!}','${(classes.school.district.id)!}');
+		 });
+		 
+	 });
+	 $districtSel.change();
 	 
 });
 </script>
@@ -77,7 +114,7 @@ $().ready( function() {
 		班级管理
 	</div>
 	<div class="body">
-		<form id="listForm" action="admin!list.action" method="post">
+		<form id="listForm" action="class!list.action" method="post">
 			<div class="listBar">
 				行政区域：&nbsp;&nbsp;
 				<select id="citySel" name="classes.school.city.id">
@@ -89,10 +126,10 @@ $().ready( function() {
 					</#list>
 				</select>&nbsp;&nbsp;
 				<select id="districtSel" name="classes.school.district.id" class="selectText" title="所在区县">
-					<option value="">请选择...</option>
 				</select>&nbsp;&nbsp;&nbsp;&nbsp;
 				学校名称：&nbsp;&nbsp;
-				<input type="text"  name="pager.keyword" value="${(pager.keyword)!}" />
+					 <select id="schoolSel" name="classes.school.id" title="学校名称">
+					</select>
 				<input type="button" id="searchButton" class="formButton" value="查询" hidefocus />
 				<input type="button" class="formButton" style="text-align:right;" onclick="location.href='class!add.action'" value="添加班级" hidefocus />
 				<input type="button" class="formButton" style="text-align:right;" onclick="location.href='class!batchAdd.action'" value="批量导入" hidefocus />

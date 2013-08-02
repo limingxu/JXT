@@ -32,14 +32,6 @@ public class ClassesServiceImpl extends BaseServiceImpl<Classes, Long> implement
 	@Transactional(readOnly=true)
 	public Pager getAllClasses(Admin admin, Pager pager) {
 		pager = classesDao.getAllClassedByAdmin(admin, pager);
-//		List<Classes> list = (List<Classes>) pager.getResult();
-//		if(ValidateUtil.isEmpty(list)){
-//			for(Classes cls : list){
-//				cls.getSchool().getName();
-//				cls.getGrade().getName();
-//				cls.getSchool().getName();
-//			}
-//		}
 		return pager;
 	}
 }

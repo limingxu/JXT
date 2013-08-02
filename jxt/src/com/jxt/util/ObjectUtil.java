@@ -53,6 +53,10 @@ public abstract class ObjectUtil {
 	public static boolean isEmpty(Object[] array) {
 		return (array == null || array.length == 0);
 	}
+	
+	public static boolean isEmpty(Object obj){
+		return (obj==null);
+	}
 
 	/**
 	 * Check whether the given array contains the given element.

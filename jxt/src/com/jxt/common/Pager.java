@@ -2,6 +2,7 @@ package com.jxt.common;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import com.jxt.hql.Pagination;
 
@@ -19,6 +20,7 @@ public class Pager {
 	private int pageSize = 20;// 每页记录数
 	private String searchBy;// 查找字段
 	private String keyword;// 查找关键字
+	private Map<String,Object> conditions;
 	private String orderBy;// 排序字段
 	private Order order;// 排序方式
 
@@ -64,6 +66,14 @@ public class Pager {
 
 	public void setSearchBy(String searchBy) {
 		this.searchBy = searchBy;
+	}
+
+	public Map<String, Object> getConditions() {
+		return conditions;
+	}
+
+	public void setConditions(Map<String, Object> conditions) {
+		this.conditions = conditions;
 	}
 
 	public String getKeyword() {

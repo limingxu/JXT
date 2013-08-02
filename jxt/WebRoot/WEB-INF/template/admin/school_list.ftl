@@ -23,9 +23,6 @@
 			</div>
 			<table id="listTable" class="listTable">
 				<tr>
-					<th class="check">
-						<input type="checkbox" class="allCheck" />
-					</th>
 					<th>
 						<p name="username" hidefocus>学校名称</p>
 					</th>
@@ -45,9 +42,6 @@
 				</tr>
 					<#list pager.result as school>
 					<tr> 
-						<td>
-							<input type="checkbox" name="ids" value="1" />
-						</td>
 						<td>
 							${(school.name)!}
 						</td>
@@ -69,9 +63,6 @@
 			</table>
 			<#if (pager.result?size > 0)>
 				<div class="pagerBar">
-					<div class="delete">
-						<input type="button" id="deleteButton" class="formButton" url="admin!delete.action" value="删 除" disabled hidefocus />
-					</div>
 					<div class="pager">
 						<#include "/WEB-INF/template/admin/pager.ftl" />
 					</div>

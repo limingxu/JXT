@@ -1,5 +1,8 @@
 package com.jxt.action.admin;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.annotation.Resource;
 
 import org.apache.struts2.convention.annotation.ParentPackage;
@@ -29,7 +32,9 @@ public class ClassAction extends BaseAction {
 	// 列表
 	public String list() {
 		admin = this.getLoginAdmin();
-		
+		Map<String,Object> conditions = new HashMap<String,Object>();
+		conditions.put("classes", classes);
+		pager.setConditions(conditions);
 		pager = classesService.getAllClasses(admin, pager);
 		
 		return LIST;

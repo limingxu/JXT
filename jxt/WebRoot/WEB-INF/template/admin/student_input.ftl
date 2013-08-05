@@ -178,9 +178,9 @@ $().ready( function() {
 	 var $reset = $("#reset");
 	 $reset.click( function(){
 	 	<#if isAddAction>
-	 		 window.location.href="school!add.action";
+	 		 window.location.href="student!add.action";
 	 	<#else> 
-	 		window.location.href="school!edit.action?id=${(school.id)!}";
+	 		window.location.href="student!edit.action?id=${(student.id)!}";
 	 	</#if>
 	 });
 	 
@@ -219,14 +219,14 @@ $().ready( function() {
 						minlength: 2,
 						maxlength: 20
 				},
-				"student.name": {
+				"student.stdName": {
 					required: true
 				},
-				"school.parent.phoneNum": {
+				"student.parentPhoneNum": {
 					isMobile: true,
 					required: true
 				},
-				"school.parent.chargePhoneNum": {
+				"student.parentChargePhoneNum": {
 					isMobile: true,
 				},
 				"busiOrder.startDate": {
@@ -252,7 +252,7 @@ $().ready( function() {
 		<ul></ul>
 	</div>
 	<div class="body">
-		<form id="validateForm" action="<#if isAddAction>school!save.action<#else>school!update.action</#if>" method="post">
+		<form id="validateForm" action="<#if isAddAction>student!save.action<#else>school!update.action</#if>" method="post">
 			<input type="hidden" name="student.id" value="${(student.id)!}" />
 			<div class="listBar">
 						选择班级:&nbsp;&nbsp;&nbsp;
@@ -266,7 +266,7 @@ $().ready( function() {
 										
 						<select id="phaseSel" name="student.classes.grade.phase"  size="8" style="width:200px" title="学段">
 						</select> &nbsp;&nbsp;
-						<select id="gradeSel" name="student.classes.grade.name"  size="8" style="width:200px" title="年级">
+						<select id="gradeSel" name="student.classes.grade.id"  size="8" style="width:200px" title="年级">
 						</select> &nbsp;&nbsp;
 						<select id="classSel" name="student.classes.name"  size="8" style="width:200px" title="班级">
 						</select>
@@ -286,7 +286,7 @@ $().ready( function() {
 						学生姓名：
 					</th>
 					<td>	
-							<input type="text" name="student.name" value="${(student.name)!}" class="formText" title="学生姓名" />
+							<input type="text" name="student.stdName" value="${(student.stdName)!}" class="formText" title="学生姓名" />
 							<label class="requireField">*</label>
 					</td>
 				</tr>
@@ -295,7 +295,7 @@ $().ready( function() {
 						家长姓名: 
 					</th>
 					<td>
-							<input type="text" name="student.parent.name" value="${(student.parent.name)!}" class="formText" title="家长姓名" />
+							<input type="text" name="student.parentName" value="${(student.parentName)!}" class="formText" title="家长姓名" />
 					</td>
 				</tr>
 				<tr>
@@ -303,7 +303,7 @@ $().ready( function() {
 						家长手机号: 
 					</th>
 					<td>
-						<input type="text" title="家长手机号" name="school.parent.phoneNum" value="${(school.parent.phoneNum)!}"  class="formText" />
+						<input type="text" title="家长手机号" name="student.parentPhoneNum" value="${(student.parentPhoneNum)!}"  class="formText" />
 						<label class="requireField">*</label>
 					</td>
 				</tr>
@@ -312,7 +312,7 @@ $().ready( function() {
 						家长计费手机号: 
 					</th>
 					<td>
-						<input type="text" title="家长计费手机号" name="school.parent.chargePhoneNum" value="${(school.parent.chargePhoneNum)!}"  class="formText" />
+						<input type="text" title="家长计费手机号" name="student.parentChargePhoneNum" value="${(student.parentChargePhoneNum)!}"  class="formText" />
 					</td>
 				</tr>
 				<tr>

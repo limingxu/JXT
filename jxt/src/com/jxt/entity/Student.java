@@ -25,7 +25,7 @@ public class Student extends com.jxt.entity.BaseEntity implements
 	private Integer stdPhoneSendStatus;
 	private Integer stdStatus=ACTIVE;//?不知道什么意思
 	private String parentPhoneNum;
-	private Integer parentPhoneType;
+	private Integer parentPhoneType;//1
 	private String parentChargePhoneNum;
 	private Integer parentChargePhoneType;
 	private Integer smsFlag;//?不知道什么意思

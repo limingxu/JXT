@@ -65,7 +65,7 @@ public class InitializableApplicationListener implements ApplicationListener, Se
 				Map<String,SmsStatus> map = new HashMap<String,SmsStatus>();
 				BaseAction.setSmsStatusList(smsStatusList);
 				for(SmsStatus status : smsStatusList){
-					map.put(status.getId(), status);
+					map.put(status.getId().toString(), status);
 				}
 				BaseAction.setSmsStatusMap(map);
 			}
@@ -75,7 +75,7 @@ public class InitializableApplicationListener implements ApplicationListener, Se
 				Map<String,BusiStatus> map = new HashMap<String,BusiStatus>();
 				BaseAction.setBusiStatusList(busiStatusList);
 				for(BusiStatus status : busiStatusList){
-					map.put(status.getId(), status);
+					map.put(status.getId().toString(), status);
 				}
 				BaseAction.setBusiStatusMap(map);
 			}

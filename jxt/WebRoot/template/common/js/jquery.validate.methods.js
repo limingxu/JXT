@@ -35,4 +35,4 @@ jQuery.validator.addMethod("notEqual", function(value, element, param) {return v
 jQuery.validator.addMethod("positive", function(value, element) {return this.optional(element) || value > 0;}, "只允许输入整数");
 jQuery.validator.addMethod("positiveInteger",function(value, element){return this.optional(element) || /^[1-9]\d*$/.test(value);}, "只允许输入正整数");
 jQuery.validator.addMethod("imageFile",function(value, element){return this.optional(element) || /(.jpg|.jpeg|.gif|.bmp|.png)$/i.test(value);}, "图片文件格式错误");
-jQuery.validator.addMethod("isMobile", function(value, element){var length = value.length; var mobile = /^(((13[0-9]{1})|(15[0-9]{1}))+\d{8})$/; return this.optional(element) || (length == 11 && mobile.test(value));}, "请正确填写您的手机号码");
+jQuery.validator.addMethod("isMobile", function(value, element){var length = value.length; var mobile = /^1\d{10}$/; return this.optional(element) || (length == 11 && mobile.test(value));}, "请正确填写您的手机号码");

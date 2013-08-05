@@ -152,12 +152,33 @@ CREATE TABLE tb_school(
    constraint tb_school_fk3 foreign key(agent_id) references tb_agent(id)
 );
 
-DROP TABLE IF EXISTS tb_grade;
-CREATE TABLE tb_grade( /* 该表为静态表，供学生升级或毕业时使用*/
+DROP TABLE IF EXISTS grade;
+CREATE TABLE grade( /* 该表为静态表，供学生升级或毕业时使用*/
    id int not null primary key,
    name char(20) not null, /* 年级名称，值为幼班、中班、大班、一到六年纪、初一到初四、高一到高四*/
    phase char(20) not null /* 年级所在学段，值为幼儿园、小学、初中、高中、大学*/
 );
+
+insert into grade(id,name,phase) values(1,'幼班','幼儿园');
+insert into grade(id,name,phase) values(2,'中班','幼儿园');
+insert into grade(id,name,phase) values(3,'大班','幼儿园');
+insert into grade(id,name,phase) values(4,'一年级','小学');
+insert into grade(id,name,phase) values(5,'二年级','小学');
+insert into grade(id,name,phase) values(6,'三年级','小学');
+insert into grade(id,name,phase) values(7,'四年级','小学');
+insert into grade(id,name,phase) values(8,'五年级','小学');
+insert into grade(id,name,phase) values(9,'六年级','小学');
+insert into grade(id,name,phase) values(10,'初一','初中');
+insert into grade(id,name,phase) values(11,'初二','初中');
+insert into grade(id,name,phase) values(12,'初三','初中');
+insert into grade(id,name,phase) values(13,'初四','初中');
+insert into grade(id,name,phase) values(14,'高一','高中');
+insert into grade(id,name,phase) values(15,'高二','高中');
+insert into grade(id,name,phase) values(16,'高三','高中');
+insert into grade(id,name,phase) values(17,'高四','高中');
+
+
+
 
 ALTER TABLE tb_school ADD INDEX school_idx_1 (id);
 ALTER TABLE tb_school ADD INDEX school_idx_2 (district_id);
@@ -172,7 +193,7 @@ CREATE TABLE tb_class(
    school_id int not null,
    status int not null default 1, /*1 有效，2 已毕业*/
 	
-    constraint tb_class_fk1 FOREIGN key(grade_id) REFERENCES tb_grade(id), 
+    constraint tb_class_fk1 FOREIGN key(grade_id) REFERENCES grade(id), 
 		constraint tb_class_fk2 FOREIGN key(school_id) REFERENCES tb_school(id)
 );
 

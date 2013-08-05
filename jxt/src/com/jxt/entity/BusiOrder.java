@@ -22,7 +22,7 @@ public class BusiOrder extends com.jxt.entity.BaseEntity implements
 	private Student student;
 	private Date startDate;
 	private Date endDate;
-	private Integer parPhoneSendStatus;
+	private Integer parPhoneSendStatus=ACTIVE;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@ForeignKey(name = "fk_cha_ser_ref_stu")

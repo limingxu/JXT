@@ -29,6 +29,9 @@ public class BaseEntity implements Serializable {
 	
 	public  static final Integer ACTIVE =1;
 	public static final Integer  INACTIVE =0;
+	
+	public  static final Integer UNICOM =1;
+	public static final Integer  OTHERPHONETYPE =0;
 
 	@Id
 	@Column(length = 32, nullable = true)

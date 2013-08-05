@@ -14,6 +14,9 @@ import com.jxt.entity.Student;
 import com.jxt.service.SchoolService;
 import com.jxt.service.StudentService;
 import com.opensymphony.xwork2.interceptor.annotations.InputConfig;
+import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
+import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
+import com.opensymphony.xwork2.validator.annotations.Validations;
 
 
 @ParentPackage("admin")
@@ -67,40 +70,67 @@ public class StudentAction extends BaseAction {
 		return SUCCESS;
 	}
 	
-//	@Validations(
-//			requiredStrings = {
-//				@RequiredStringValidator(fieldName = "school.name", message = "学校名不允许为空!")
-//			},
-//			requiredFields = {
-//				@RequiredFieldValidator(fieldName = "school.city.id", message = "所在城市不允许为空"),
-//				@RequiredFieldValidator(fieldName = "school.district.id", message = "所在地区不允许为空")
-//			}
-//		)
+	@Validations(
+			requiredStrings = {
+				@RequiredStringValidator(fieldName = "student.stdNum", message = "学生学号不允许为空!"),
+				@RequiredStringValidator(fieldName = "student.stdName", message = "学生姓名不允许为空!"),
+				@RequiredStringValidator(fieldName = "student.parentPhoneNum", message = "家长手机号不能为空!")
+			}
+		)
 	  @InputConfig(resultName = "error")
 	  public String save() {
 		admin = this.getLoginAdmin();
 		
-//		if(!getIsAgent(getLoginAdmin().getRoleType())){
-//			addActionError("您没有添加学校的权限");
-//			return ERROR;
-//		}
+		if(validateStudent()) return ERROR;
 		
-		//设置
-		schoolService.saveSchool(school, admin);
+		studentService.save(student,busiOrder);
+		
 		
 		redirectUrl = "school!list.action";
 		return SUCCESS;
 	}
+
+	private boolean validateStudent() {
+		if(busiOrder ==null || busiOrder.getStartDate()==null){
+			addActionError("服务开始时间不能为空");
+			return false;
+		}
+		
+		if(busiOrder ==null || busiOrder.getEndDate()==null){
+			addActionError("服务结束时间不能为空");
+			return false;
+		}
+		
+		if(busiOrder.getStartDate().after(busiOrder.getEndDate())){
+			addActionError("服务开始时间不能提前于服务结束时间");
+			return false;
+		}
+		
+		//校验学生
+		boolean isExist=checkValidStudent(student);
+		if(isExist){
+			addActionError("学生学号重复");
+			return false;
+		}
+		return true;
+	}
 	
+	//校验学生
+	public boolean checkValidStudent(Student student) {
+		boolean isExist = studentService.checkStuIDNum(student);
+		
+		return isExist;
+	}
+
 	public String cancel(){
 		if(id ==null ){
-			addActionError("您需要取消的学校不存在，请确认");
+			addActionError("您需要取消的信息不存在，请确认");
 			return ERROR;
 		}
 		school = schoolService.get(id);
 		
 		if(school ==null ){
-			addActionError("您需要取消的学校不存在，请确认");
+			addActionError("您需要取消的信息不存在，请确认");
 			return ERROR;
 		}
 		

@@ -18,7 +18,7 @@ import com.jxt.service.SchoolService;
 
 
 @ParentPackage("admin")
-public class ResourceAction extends BaseAction {
+public class CopyOfResourceAction extends BaseAction {
 
 	private static final long serialVersionUID = -6296393115930477663L;
 	
@@ -76,19 +76,6 @@ public class ResourceAction extends BaseAction {
 			if(classes.getSchool().getId()!=schoolId){
 				continue;
 			}
-			
-			if(gradeId!=null){
-				if(classes.getGrade().getId()!=gradeId){
-					continue;
-				}
-			}
-			
-			if(classesId!=null){
-				if(classes.getId()!=classesId){
-					continue;
-				}
-			}
-			
 			ClassesJson classesJson = new ClassesJson();
 			classesJson.setSchool_id(classes.getSchool().getId().toString());
 			classesJson.setClass_name(classes.getSchool().getName());
@@ -145,4 +132,5 @@ public class ResourceAction extends BaseAction {
 	public void setClassesId(Long classesId) {
 		this.classesId = classesId;
 	}
+	
 }

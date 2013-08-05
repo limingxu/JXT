@@ -23,7 +23,7 @@ public class Student extends com.jxt.entity.BaseEntity implements
 	private String stdPhoneNum;
 	private Integer stdPhoneType;
 	private Integer stdPhoneSendStatus;
-	private Integer status;
+	private Integer status =ACTIVE;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@ForeignKey(name = "fk_stu_ref_adm")

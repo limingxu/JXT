@@ -19,21 +19,10 @@ public class BusiOrder extends com.jxt.entity.BaseEntity implements
 		java.io.Serializable {
 
 	private static final long serialVersionUID = -8685368519940595835L;
-	private Admin parent;
 	private Student student;
 	private Date startDate;
 	private Date endDate;
 	private Integer parPhoneSendStatus;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@ForeignKey(name = "fk_cha_ser_ref_parent")
-	public Admin getParent() {
-		return this.parent;
-	}
-
-	public void setParent(Admin parent) {
-		this.parent = parent;
-	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@ForeignKey(name = "fk_cha_ser_ref_stu")

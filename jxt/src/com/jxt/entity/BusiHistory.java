@@ -19,7 +19,6 @@ public class BusiHistory extends com.jxt.entity.BaseEntity implements
 		java.io.Serializable {
 
 	private static final long serialVersionUID = 2091754577680377270L;
-	private Admin parent;
 	private Student student;
 	private String phoneNum;
 	private Integer phoneType;
@@ -29,16 +28,6 @@ public class BusiHistory extends com.jxt.entity.BaseEntity implements
 	private Date expiredTime;
 	private Integer parPhoneSendStatus;
 	private String reason;
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@ForeignKey(name = "fk_cha_his_ref_parent")
-	public Admin getParent() {
-		return this.parent;
-	}
-
-	public void setParent(Admin parent) {
-		this.parent = parent;
-	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@ForeignKey(name = "fk_cha_his_ref_stu")

@@ -37,11 +37,6 @@ public class Admin extends BaseEntity implements UserDetails  {
 	private String username;
 	private String email;
 	private String roleType;
-	private String phoneNum;
-	private Integer phoneType;
-	private String chargePhoneNum;
-	private Integer chargePhoneType;
-	private Integer smsFlag;
 	private String loginIp;
 	private Date loginDate;// 最后登录日期
 	private String comments;
@@ -110,48 +105,6 @@ public class Admin extends BaseEntity implements UserDetails  {
 
 	public void setRoleType(String roleType) {
 		this.roleType = roleType;
-	}
-
-	@Column(length = 20)
-	public String getPhoneNum() {
-		return this.phoneNum;
-	}
-
-	public void setPhoneNum(String phoneNum) {
-		this.phoneNum = phoneNum;
-	}
-
-	public Integer getPhoneType() {
-		return this.phoneType;
-	}
-
-	public void setPhoneType(Integer phoneType) {
-		this.phoneType = phoneType;
-	}
-
-	@Column(length = 20)
-	public String getChargePhoneNum() {
-		return this.chargePhoneNum;
-	}
-
-	public void setChargePhoneNum(String chargePhoneNum) {
-		this.chargePhoneNum = chargePhoneNum;
-	}
-
-	public Integer getChargePhoneType() {
-		return this.chargePhoneType;
-	}
-
-	public void setChargePhoneType(Integer chargePhoneType) {
-		this.chargePhoneType = chargePhoneType;
-	}
-
-	public Integer getSmsFlag() {
-		return this.smsFlag;
-	}
-
-	public void setSmsFlag(Integer smsFlag) {
-		this.smsFlag = smsFlag;
 	}
 
 	@Column(name = "login_ip")

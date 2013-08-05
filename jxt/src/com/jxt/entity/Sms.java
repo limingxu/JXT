@@ -17,10 +17,11 @@ import org.hibernate.annotations.ForeignKey;
 public class Sms extends com.jxt.entity.BaseEntity implements
 		java.io.Serializable {
 	private static final long serialVersionUID = 231497184942031864L;
-	private Admin receiver;
-	private Admin parent;
-	private Student student;
+	private Admin adminReceiver;
+	private Admin sender;
+	private Student stdReceiver;
 	private Boolean isBatch;
+	private SmsBatchHistory smsBatch;
 	private Integer receiveType;
 	private String phoneNum;
 	private Integer phoneType;
@@ -34,33 +35,43 @@ public class Sms extends com.jxt.entity.BaseEntity implements
 	private String failedReason;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@ForeignKey(name = "fk_sms_ref_adm")
-	public Admin getReceiver() {
-		return receiver;
+	@ForeignKey(name = "fk_sms_ref_smsbatch")
+	public SmsBatchHistory getSmsBatch() {
+		return smsBatch;
 	}
 
-	public void setReceiver(Admin receiver) {
-		this.receiver = receiver;
+	public void setSmsBatch(SmsBatchHistory smsBatch) {
+		this.smsBatch = smsBatch;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@ForeignKey(name = "fk_sms_ref_parent")
-	public Admin getParent() {
-		return parent;
+	@ForeignKey(name = "fk_sms_ref_adm")
+	public Admin getSender() {
+		return this.sender;
 	}
 
-	public void setParent(Admin parent) {
-		this.parent = parent;
+	public void setSender(Admin sender) {
+		this.sender = sender;
+	}
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@ForeignKey(name = "fk_sms_ref_adm")
+	public Admin getAdminReceiver() {
+		return adminReceiver;
+	}
+
+	public void setAdminReceiver(Admin adminReceiver) {
+		this.adminReceiver = adminReceiver;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@ForeignKey(name = "fk_sms_ref_stu")
-	public Student getStudent() {
-		return this.student;
+	public Student getStdReceiver() {
+		return this.stdReceiver;
 	}
 
-	public void setStudent(Student student) {
-		this.student = student;
+	public void setStdReceiver(Student stdReceiver) {
+		this.stdReceiver = stdReceiver;
 	}
 
 	public Boolean getIsBatch() {

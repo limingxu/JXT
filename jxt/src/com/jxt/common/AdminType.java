@@ -26,7 +26,6 @@ public class AdminType{
 		adminTypes.put(ROLE_AGENT_SERVER,"代理商客服");//代理商客服
 		adminTypes.put(ROLE_SCHOOL_ADMIN,"学校信息管理员");//学校信息管理员
 		adminTypes.put(ROLE_TEACHER,"老师");//老师
-		adminTypes.put(ROLE_PARENT,"家长");//家长（系统暂时不只用该类型管理员）
 	}
 	
 	public AdminType(String key,String Val){

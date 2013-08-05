@@ -49,7 +49,6 @@ public class Role extends BaseEntity {
 		roleTypes.put(AdminType.ROLE_AGENT_SERVER,5L);//代理商客服
 		roleTypes.put(AdminType.ROLE_SCHOOL_ADMIN,6L);//学校信息管理员
 		roleTypes.put(AdminType.ROLE_TEACHER,7L);//老师
-		roleTypes.put(AdminType.ROLE_PARENT,8L);//家长（系统暂时不只用该类型管理员）
 	}
 
 	@Column(nullable = false)

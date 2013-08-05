@@ -16,23 +16,27 @@ public class Student extends com.jxt.entity.BaseEntity implements
 		java.io.Serializable {
 
 	private static final long serialVersionUID = -386048413348505972L;
-	private Admin parent;
 	private Classes classes;
 	private String stdNum;
-	private String name;
+	private String stdName;
+	private String parentName;
 	private String stdPhoneNum;
 	private Integer stdPhoneType;
 	private Integer stdPhoneSendStatus;
-	private Integer status;
+	private Integer stdStatus;//?不知道什么意思
+	private String parentPhoneNum;
+	private Integer parentPhoneType;
+	private String parentChargePhoneNum;
+	private Integer parentChargePhoneType;
+	private Integer smsFlag;//?不知道什么意思
+	
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@ForeignKey(name = "fk_stu_ref_adm")
-	public Admin getParent() {
-		return this.parent;
+	public Integer getSmsFlag() {
+		return this.smsFlag;
 	}
 
-	public void setParent(Admin parent) {
-		this.parent = parent;
+	public void setSmsFlag(Integer smsFlag) {
+		this.smsFlag = smsFlag;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
@@ -52,15 +56,6 @@ public class Student extends com.jxt.entity.BaseEntity implements
 
 	public void setStdNum(String stdNum) {
 		this.stdNum = stdNum;
-	}
-
-	@Column(nullable = false, length = 20)
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	@Column(length = 20)
@@ -88,12 +83,59 @@ public class Student extends com.jxt.entity.BaseEntity implements
 		this.stdPhoneSendStatus = stdPhoneSendStatus;
 	}
 
-	@Column(nullable = false)
-	public Integer getStatus() {
-		return this.status;
+	public Integer getStdStatus() {
+		return stdStatus;
 	}
 
-	public void setStatus(Integer status) {
-		this.status = status;
+	public void setStdStatus(Integer stdStatus) {
+		this.stdStatus = stdStatus;
+	}
+
+	public String getStdName() {
+		return stdName;
+	}
+
+	public void setStdName(String stdName) {
+		this.stdName = stdName;
+	}
+
+	public String getParentName() {
+		return parentName;
+	}
+
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
+	}
+
+	public String getParentPhoneNum() {
+		return parentPhoneNum;
+	}
+
+	public void setParentPhoneNum(String parentPhoneNum) {
+		this.parentPhoneNum = parentPhoneNum;
+	}
+
+	public Integer getParentPhoneType() {
+		return parentPhoneType;
+	}
+
+	public void setParentPhoneType(Integer parentPhoneType) {
+		this.parentPhoneType = parentPhoneType;
+	}
+
+	public String getParentChargePhoneNum() {
+		return parentChargePhoneNum;
+	}
+
+	public void setParentChargePhoneNum(String parentChargePhoneNum) {
+		this.parentChargePhoneNum = parentChargePhoneNum;
+	}
+
+	public Integer getParentChargePhoneType() {
+		return parentChargePhoneType;
+	}
+
+	public void setParentChargePhoneType(Integer parentChargePhoneType) {
+		this.parentChargePhoneType = parentChargePhoneType;
 	}
 }

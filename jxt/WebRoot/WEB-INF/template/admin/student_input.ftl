@@ -21,64 +21,78 @@ $().ready( function() {
 	var $classSel = $("#classSel");
 	
 	$schoolSel.change( function() {
-		var school_id =$schoolSel.val();
-	    var school_id_request=  '${(student.classes.school.id)!}' ;
-	    $phaseSel.html('');
+		var v_id =$(this).children('option:selected').val();
+	    var v_id_request=  '${(student.classes.school.id)!}';
+	    var v_element='${(student.classes.grade.phase)!}';
+	    var $elmentSel=$phaseSel;
 	    
-	    if(school_id == ''){
-	    	if(school_id_request == ''){
-	    		$phaseSel.attr("disabled", true);
-	    		return;
-	    	}else{
-	    		school_id = school_id_request;
-	    	}
-	    }else{
-	    	$phaseSel.attr("disabled", false);
-	    }
-	    
-		$.ajax({
-			url: "resource!ajaxClasses.action",
-			data: {schoolId: school_id},
-			type: "POST",
-			dataType: "json",
-			cache: false,
-			success: function(data) {
-				if (data != null) {
-					var option = "";
-					$.each(data, function(i) {
-						<@compress single_line = false>
-							if(school_id_request==data[i].id)
-								option += '<option value="'+data[i].grade_id+'" selected>'+data[i].grade_phase+'</option>';
-							else
-								option += '<option value="'+data[i].grade_id+'">'+data[i].grade_phase+'</option>';
-						</@compress>
-					});
-					$phaseSel.append(option);
-				}
-			}
-		 });
-	 });
-	$schoolSel.change();
-	
-	$phaseSel.change( function() {
-		var v_id =$schoolSel.val();
-	    var v_id_request=  '${(student.classes.school.id)!}' ;
-	    $phaseSel.html('');
+	    $elmentSel.html('');
 	    
 	    if(v_id == ''){
 	    	if(v_id_request == ''){
-	    		$phaseSel.attr("disabled", true);
+	    		$elmentSel.attr("disabled", true);
 	    		return;
 	    	}else{
 	    		v_id = v_id_request;
 	    	}
 	    }else{
-	    	$phaseSel.attr("disabled", false);
+	    	$elmentSel.attr("disabled", false);
 	    }
 	    
 		$.ajax({
 			url: "resource!ajaxClasses.action",
-			data: {schoolId: school_id},
+			data: {schoolId: v_id},
+			type: "POST",
+			dataType: "json",
+			cache: false,
+			success: function(data) {
+				if (data != null) {
+					var option = "";
+					var arrObj = new Array()
+					$.each(data, function(i) {
+						<@compress single_line = false>
+							var _exist=$.inArray(data[i].grade_phase,arrObj); 
+							if(_exist>=0){
+								return true;
+							}else{
+								arrObj.push(data[i].grade_phase);
+							}
+						
+							if(v_element==data[i].grade_phase)
+								option += '<option value="'+data[i].grade_phase+'" selected>'+data[i].grade_phase+'</option>';
+							else
+								option += '<option value="'+data[i].grade_phase+'">'+data[i].grade_phase+'</option>';
+						</@compress>
+					});
+					$elmentSel.append(option);
+				}
+			}
+		 });
+		 refresh();
+	 });
+	$schoolSel.change();
+	
+	$phaseSel.change( function() {
+		var v_id =$(this).children('option:selected').val();
+	    var v_id_request=  '${(student.classes.grade.phase)!}' ;
+	    var v_element='${(student.classes.grade.id)!}';
+	    var $elmentSel=$gradeSel;
+	    $elmentSel.html('');
+	    
+	    if(v_id == ''){
+	    	if(v_id_request == ''){
+	    		$elmentSel.attr("disabled", true);
+	    		return;
+	    	}else{
+	    		v_id = v_id_request;
+	    	}
+	    }else{
+	    	$elmentSel.attr("disabled", false);
+	    }
+	    
+		$.ajax({
+			url: "resource!ajaxClasses.action",
+			data: {schoolId: $schoolSel.val(),gradePhase:v_id},
 			type: "POST",
 			dataType: "json",
 			cache: false,
@@ -87,18 +101,79 @@ $().ready( function() {
 					var option = "";
 					$.each(data, function(i) {
 						<@compress single_line = false>
-							if(school_id_request==data[i].id)
-								option += '<option value="'+data[i].grade_id+'" selected>'+data[i].grade_phase+'</option>';
+							if(v_element==data[i].grade_id)
+								option += '<option value="'+data[i].grade_id+'" selected>'+data[i].grade_name+'</option>';
 							else
-								option += '<option value="'+data[i].grade_id+'">'+data[i].grade_phase+'</option>';
+								option += '<option value="'+data[i].grade_id+'">'+data[i].grade_name+'</option>';
 						</@compress>
 					});
-					$phaseSel.append(option);
+					$elmentSel.append(option);
+				}
+			}
+		 });
+		 refresh();
+	 });
+	$phaseSel.change();
+	
+	$gradeSel.change( function() {
+		var v_id =$(this).children('option:selected').val();
+	    var v_id_request= '${(student.classes.grade.id)!}' ;
+	    var v_element='${(student.classes.id)!}';
+	    var $elmentSel = $classSel;
+	    $elmentSel.html('');
+	    
+	    if(v_id == ''){
+	    	if(v_id_request == ''){
+	    		$elmentSel.attr("disabled", true);
+	    		return;
+	    	}else{
+	    		v_id = v_id_request;
+	    	}
+	    }else{
+	    	$elmentSel.attr("disabled", false);
+	    }
+	    
+		$.ajax({
+			url: "resource!ajaxClasses.action",
+			data: {schoolId: $schoolSel.val(),gradePhase:$phaseSel.val(),gradeId:v_id},
+			type: "POST",
+			dataType: "json",
+			cache: false,
+			success: function(data) {
+				if (data != null) {
+					var option = "";
+					$.each(data, function(i) {
+						<@compress single_line = false>
+							if(v_element==data[i].class_id)
+								option += '<option value="'+data[i].class_id+'" selected>'+data[i].class_name+'</option>';
+							else
+								option += '<option value="'+data[i].class_id+'">'+data[i].class_name+'</option>';
+						</@compress>
+					});
+					$elmentSel.append(option);
 				}
 			}
 		 });
 	 });
-	$phaseSel.change();
+	$gradeSel.change();
+	
+    function refresh(){
+		if($schoolSel.val()=='' || $schoolSel.val()==null){
+			$phaseSel.html('');
+			$gradeSel.html('');
+			$classSel.html('');
+		}
+		
+		if($phaseSel.val()=='' || $phaseSel.val()==null){
+			$gradeSel.html('');
+			$classSel.html('');
+		}
+		if($gradeSel.val()=='' || $gradeSel.val()==null){
+			$classSel.html('');
+		}
+				
+	};
+	
 	
 	 var $reset = $("#reset");
 	 $reset.click( function(){
@@ -147,25 +222,18 @@ $().ready( function() {
 				"student.name": {
 					required: true
 				},
-			
-				"student.parent.name": {
-					required: true
-				},
 				"school.parent.phoneNum": {
 					isMobile: true,
 					required: true
 				},
 				"school.parent.chargePhoneNum": {
 					isMobile: true,
-					required: true
 				},
 				"busiOrder.startDate": {
-					required :true,
-					date :true
+					required :true
 				},
 				"busiOrder.endDate": {
-					required : true,
-					date :true
+					required : true
 				}
 			},
 			submitHandler: function(form) {
@@ -197,16 +265,10 @@ $().ready( function() {
 						</select> &nbsp;&nbsp;
 										
 						<select id="phaseSel" name="student.classes.grade.phase"  size="8" style="width:200px" title="学段">
-							<option>小学</option>
-							<option>中学</option>
 						</select> &nbsp;&nbsp;
 						<select id="gradeSel" name="student.classes.grade.name"  size="8" style="width:200px" title="年级">
-							<option>一年级</option>
-							<option>二年级</option>
 						</select> &nbsp;&nbsp;
 						<select id="classSel" name="student.classes.name"  size="8" style="width:200px" title="班级">
-							<option>1班</option>
-							<option>2班</option>
 						</select>
 					</div>
 			<table class="inputTable tabContent">
@@ -234,7 +296,6 @@ $().ready( function() {
 					</th>
 					<td>
 							<input type="text" name="student.parent.name" value="${(student.parent.name)!}" class="formText" title="家长姓名" />
-							<label class="requireField">*</label>
 					</td>
 				</tr>
 				<tr>
@@ -252,7 +313,6 @@ $().ready( function() {
 					</th>
 					<td>
 						<input type="text" title="家长计费手机号" name="school.parent.chargePhoneNum" value="${(school.parent.chargePhoneNum)!}"  class="formText" />
-						<label class="requireField">*</label>
 					</td>
 				</tr>
 				<tr>

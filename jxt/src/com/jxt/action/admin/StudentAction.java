@@ -14,9 +14,6 @@ import com.jxt.entity.Student;
 import com.jxt.service.SchoolService;
 import com.jxt.service.StudentService;
 import com.opensymphony.xwork2.interceptor.annotations.InputConfig;
-import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
-import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
-import com.opensymphony.xwork2.validator.annotations.Validations;
 
 
 @ParentPackage("admin")

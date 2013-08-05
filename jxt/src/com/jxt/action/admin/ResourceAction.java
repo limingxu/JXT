@@ -30,6 +30,8 @@ public class ResourceAction extends BaseAction {
 	private Long gradeId;
 	private Long classesId;
 	
+	private String gradePhase;
+	
 	@Resource(name="schoolServiceImpl")
 	private SchoolService schoolService;
 	
@@ -69,7 +71,7 @@ public class ResourceAction extends BaseAction {
 	}
 	
 	public void ajaxClasses(){
-		List<Classes> classesList= classesService.getActiveAll();
+		List<Classes> classesList= classesService.getAllClassesByAdmin(this.getLoginAdmin());
 		
 		List<ClassesJson> classesJsons= new ArrayList<ClassesJson>();
 		for(Classes classes: classesList){
@@ -79,6 +81,12 @@ public class ResourceAction extends BaseAction {
 			
 			if(gradeId!=null){
 				if(classes.getGrade().getId()!=gradeId){
+					continue;
+				}
+			}
+			
+			if(gradePhase !=null) {
+				if(!gradePhase.equals(classes.getGrade().getPhase())){
 					continue;
 				}
 			}
@@ -144,5 +152,13 @@ public class ResourceAction extends BaseAction {
 
 	public void setClassesId(Long classesId) {
 		this.classesId = classesId;
+	}
+
+	public String getGradePhase() {
+		return gradePhase;
+	}
+
+	public void setGradePhase(String gradePhase) {
+		this.gradePhase = gradePhase;
 	}
 }

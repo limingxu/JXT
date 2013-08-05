@@ -18,7 +18,7 @@ import com.jxt.service.SchoolService;
 
 
 @ParentPackage("admin")
-public class ResourceAction extends BaseAction {
+public class CopyOfResourceAction extends BaseAction {
 
 	private static final long serialVersionUID = -6296393115930477663L;
 	
@@ -29,8 +29,6 @@ public class ResourceAction extends BaseAction {
 	private Long schoolId;
 	private Long gradeId;
 	private Long classesId;
-	
-	private String gradePhase;
 	
 	@Resource(name="schoolServiceImpl")
 	private SchoolService schoolService;
@@ -71,32 +69,13 @@ public class ResourceAction extends BaseAction {
 	}
 	
 	public void ajaxClasses(){
-		List<Classes> classesList= classesService.getAllClassesByAdmin(this.getLoginAdmin());
+		List<Classes> classesList= classesService.getActiveAll();
 		
 		List<ClassesJson> classesJsons= new ArrayList<ClassesJson>();
 		for(Classes classes: classesList){
 			if(classes.getSchool().getId()!=schoolId){
 				continue;
 			}
-			
-			if(gradeId!=null){
-				if(classes.getGrade().getId()!=gradeId){
-					continue;
-				}
-			}
-			
-			if(gradePhase !=null) {
-				if(!gradePhase.equals(classes.getGrade().getPhase())){
-					continue;
-				}
-			}
-			
-			if(classesId!=null){
-				if(classes.getId()!=classesId){
-					continue;
-				}
-			}
-			
 			ClassesJson classesJson = new ClassesJson();
 			classesJson.setSchool_id(classes.getSchool().getId().toString());
 			classesJson.setClass_name(classes.getSchool().getName());
@@ -153,12 +132,5 @@ public class ResourceAction extends BaseAction {
 	public void setClassesId(Long classesId) {
 		this.classesId = classesId;
 	}
-
-	public String getGradePhase() {
-		return gradePhase;
-	}
-
-	public void setGradePhase(String gradePhase) {
-		this.gradePhase = gradePhase;
-	}
+	
 }

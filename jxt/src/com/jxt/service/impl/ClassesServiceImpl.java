@@ -34,4 +34,10 @@ public class ClassesServiceImpl extends BaseServiceImpl<Classes, Long> implement
 		pager = classesDao.getAllClassedByAdmin(admin, pager);
 		return pager;
 	}
+
+	@Transactional(readOnly=true)
+	public List<Classes> getAllClassesByAdmin(Admin admin) {
+		
+		return classesDao.getAllClassedByAdmin(admin);
+	}
 }

@@ -1,5 +1,6 @@
 package com.jxt.dao.impl;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
@@ -65,6 +66,17 @@ public class ClassesDaoImpl extends GenericDaoImpl<Classes,Long> implements Clas
 		Pagination<Classes> pagination =  getPagination(countHql, hql, params.getProperties(),pager.getPageNumber(), pager.getPageSize());
 		
 		return Pager.pagination2pager(pagination, pager);
+	}
+
+	@Override
+	public List<Classes> getAllClassedByAdmin(Admin admin) {
+		String hql = get_all_school_by_admin;
+		
+		HqlParams params = new HqlParams();
+		params.add("id",admin.getId());
+		params.add("status",BaseEntity.ACTIVE);
+		
+		return this.findByHql(hql, params.getProperties());
 	}
 
 }

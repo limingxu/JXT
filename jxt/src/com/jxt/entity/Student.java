@@ -29,7 +29,7 @@ public class Student extends com.jxt.entity.BaseEntity implements
 	private String parentChargePhoneNum;
 	private Integer parentChargePhoneType;
 	private Integer smsFlag;//?不知道什么意思
-	
+	private Integer status =ACTIVE;
 
 	public Integer getSmsFlag() {
 		return this.smsFlag;

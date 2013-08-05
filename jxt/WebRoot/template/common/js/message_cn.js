@@ -1,5 +1,6 @@
 jQuery.extend(jQuery.validator.messages, {
   required: "必选字段",
+  requiredOne :"必填一项",
   remote: "该字段值已存在",
   username: "该字段只允许包含中文、英文、数字和下划线",
   email: "请输入正确格式的电子邮件",
@@ -16,5 +17,6 @@ jQuery.extend(jQuery.validator.messages, {
   rangelength: jQuery.validator.format("请输入 一个长度介于 {0} 和 {1} 之间的字符串"),
   range: jQuery.validator.format("请输入一个介于 {0} 和 {1} 之间的值"),
   max: jQuery.validator.format("请输入一个最大为{0} 的值"),
-  min: jQuery.validator.format("请输入一个最小为{0} 的值")
+  min: jQuery.validator.format("请输入一个最小为{0} 的值"),
+  isMobile : "请正确填写您的手机号码"
 });

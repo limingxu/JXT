@@ -7,12 +7,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.jxt.common.Pager;
 import com.jxt.dao.GenericDao;
+import com.jxt.entity.BaseEntity;
 import com.jxt.hql.Pagination;
 import com.jxt.service.BaseService;
 
 
 @Transactional
-public class BaseServiceImpl<T, PK extends Serializable> implements BaseService<T, PK> {
+public class BaseServiceImpl<T extends BaseEntity, PK extends Serializable> implements BaseService<T, PK> {
 
 	private GenericDao<T, PK> baseDao;
 

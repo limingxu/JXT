@@ -5,13 +5,16 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.jxt.common.Pager;
 import com.jxt.dao.BusiOrderDao;
 import com.jxt.dao.StudentDao;
+import com.jxt.entity.Admin;
 import com.jxt.entity.BaseEntity;
 import com.jxt.entity.BusiOrder;
 import com.jxt.entity.Student;
 import com.jxt.service.StudentService;
 import com.jxt.util.MobileUtil;
+import com.jxt.util.StringUtil;
 @Service("studentServiceImpl")
 public class StudentServiceImpl extends BaseServiceImpl<Student, Long> implements StudentService {
 
@@ -44,20 +47,29 @@ public class StudentServiceImpl extends BaseServiceImpl<Student, Long> implement
 			student.setParentPhoneType(BaseEntity.OTHERPHONETYPE);
 		}
 		
-		if(student.getStdPhoneNum()!=null){
+		if(!StringUtil.isEmpty(student.getStdPhoneNum())){
 			Integer stdPhoneType = MobileUtil.isUNICOMPhone(student.getStdPhoneNum())?BaseEntity.UNICOM:BaseEntity.OTHERPHONETYPE;
 			student.setStdPhoneType(stdPhoneType);
 		}
 		
-		if(student.getParentChargePhoneNum()!=null){
+		if(!StringUtil.isEmpty((student.getParentChargePhoneNum()))){
 			Integer phoneType = MobileUtil.isUNICOMPhone(student.getParentChargePhoneNum())?BaseEntity.UNICOM:BaseEntity.OTHERPHONETYPE;
 			student.setParentChargePhoneType(phoneType);
+		}else{
+			student.setParentChargePhoneNum(student.getParentPhoneNum());
+			student.setParentChargePhoneType(student.getParentPhoneType());
 		}
 		
 		studentDao.save(student);
 		
 		busiOrder.setStudent(student);
 		busiOrderDao.save(busiOrder);
+	}
+
+	@Override
+	public Pager getAllStudent(Admin admin, Pager pager) {
+		
+		return pager;
 	}
 
 }

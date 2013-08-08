@@ -3,9 +3,10 @@ package com.jxt.dao;
 import java.io.Serializable;
 import java.util.List;
 
+import com.jxt.entity.BaseEntity;
 import com.jxt.hql.Pagination;
 
-public interface GenericDao<T, K extends Serializable>
+public interface GenericDao<T extends BaseEntity, K extends Serializable>
 {
 	public T load(K id);
 	

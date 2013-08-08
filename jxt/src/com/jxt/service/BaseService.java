@@ -4,9 +4,10 @@ import java.io.Serializable;
 import java.util.List;
 
 import com.jxt.common.Pager;
+import com.jxt.entity.BaseEntity;
 
 
-public interface BaseService<T, PK extends Serializable> {
+public interface BaseService<T extends BaseEntity, PK extends Serializable> {
 
 	public T load(PK id);
 	

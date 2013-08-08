@@ -99,9 +99,18 @@ $().ready( function() {
 			success: function(data) {
 				if (data != null) {
 					var option = "";
+					var arrObj = new Array();
+				
 					$.each(data, function(i) {
+						var _exist=$.inArray(data[i].grade_name,arrObj); 
+						if(_exist>=0){
+								return true;
+							}else{
+								arrObj.push(data[i].grade_name);
+							}
+					
 						<@compress single_line = false>
-							if(v_element==data[i].grade_id)
+							if(v_element==data[i].grade_name)
 								option += '<option value="'+data[i].grade_id+'" selected>'+data[i].grade_name+'</option>';
 							else
 								option += '<option value="'+data[i].grade_id+'">'+data[i].grade_name+'</option>';
@@ -210,7 +219,7 @@ $().ready( function() {
 					requiredOne:"#gradeSel",
 					required:true
 				},
-				"student.classes.name" :{
+				"student.classes.id" :{
 					requiredOne:"#classSel",
 					required:true
 				},
@@ -268,7 +277,7 @@ $().ready( function() {
 						</select> &nbsp;&nbsp;
 						<select id="gradeSel" name="student.classes.grade.id"  size="8" style="width:200px" title="年级">
 						</select> &nbsp;&nbsp;
-						<select id="classSel" name="student.classes.name"  size="8" style="width:200px" title="班级">
+						<select id="classSel" name="student.classes.id"  size="8" style="width:200px" title="班级">
 						</select>
 					</div>
 			<table class="inputTable tabContent">

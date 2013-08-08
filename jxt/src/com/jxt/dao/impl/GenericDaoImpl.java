@@ -29,7 +29,7 @@ import com.jxt.hql.Param;
 import com.jxt.util.StringUtil;
 import com.jxt.util.ValidateUtil;
 @SuppressWarnings("unchecked")
-public class GenericDaoImpl<T, K extends Serializable> extends HibernateDaoSupport implements GenericDao<T, K> {
+public class GenericDaoImpl<T extends BaseEntity, K extends Serializable> extends HibernateDaoSupport implements GenericDao<T, K> {
 	
 	/**
 	 * Logger for this class
@@ -104,7 +104,7 @@ public class GenericDaoImpl<T, K extends Serializable> extends HibernateDaoSuppo
 		template.update(obj);
 		template.flush();
 	}
-
+	
 	/*
 	 * (non-Javadoc)
 	 * 

@@ -86,7 +86,16 @@ public class MobileUtil {
 	}
 	
 	public static boolean isUNICOMPhone(String tel){
-		return UNICOM.contains(tel);
+		Pattern pattern = Pattern.compile("1\\d{10}");
+		Matcher matcher = pattern.matcher(tel);
+		
+		if(matcher.matches()){
+			return UNICOM.contains(tel.substring(0, 3));
+		}else{
+			throw new IllegalArgumentException("手机格式不符合规范");
+		}
+		
+		
 	}
 	
 	

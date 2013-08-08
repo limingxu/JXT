@@ -22,7 +22,10 @@ public class BusiOrder extends com.jxt.entity.BaseEntity implements
 	private Student student;
 	private Date startDate;
 	private Date endDate;
-	private Integer parPhoneSendStatus=ACTIVE;
+	
+	private BusiStatus busiStatus;
+	
+	private Integer status=ACTIVE;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@ForeignKey(name = "fk_cha_ser_ref_stu")
@@ -50,12 +53,25 @@ public class BusiOrder extends com.jxt.entity.BaseEntity implements
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
-
-	public Integer getParPhoneSendStatus() {
-		return this.parPhoneSendStatus;
+	@ManyToOne(fetch = FetchType.EAGER)
+	@ForeignKey(name = "fk_cha_ser_ref_status")
+	public BusiStatus getBusiStatus() {
+		return busiStatus;
+	}
+	
+	public void setBusiStatus(BusiStatus busiStatus) {
+		this.busiStatus = busiStatus;
+	}
+	
+	public Integer getStatus() {
+		return status;
 	}
 
-	public void setParPhoneSendStatus(Integer parPhoneSendStatus) {
-		this.parPhoneSendStatus = parPhoneSendStatus;
+	public void setStatus(Integer status) {
+		this.status = status;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 }

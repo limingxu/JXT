@@ -11,10 +11,10 @@ import com.jxt.entity.BaseEntity;
 import com.jxt.entity.BusiOrder;
 import com.jxt.entity.School;
 import com.jxt.entity.Student;
+import com.jxt.service.BusiOrderService;
 import com.jxt.service.SchoolService;
 import com.jxt.service.StudentService;
 import com.opensymphony.xwork2.interceptor.annotations.InputConfig;
-import com.opensymphony.xwork2.validator.annotations.RequiredFieldValidator;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.Validations;
 
@@ -40,11 +40,15 @@ public class StudentAction extends BaseAction {
 	@Resource(name="studentServiceImpl")
 	private StudentService studentService;
 	
+	@Resource(name="busiOrderServiceImpl")
+	private BusiOrderService busiOrderService;
+	
+	
 	// 列表
 	public String list() {
 		admin = this.getLoginAdmin();
 		
-		pager = schoolService.getAllSchools(admin, pager);
+//		pager = busiOrderService.getAllStudent(admin, pager);
 		
 		return LIST;
 	}
@@ -81,46 +85,47 @@ public class StudentAction extends BaseAction {
 	  public String save() {
 		admin = this.getLoginAdmin();
 		
-		if(validateStudent()) return ERROR;
-		
 		studentService.save(student,busiOrder);
 		
+		busiOrder = new BusiOrder();
 		
-		redirectUrl = "school!list.action";
+		redirectUrl = "student!list.action";
 		return SUCCESS;
 	}
 
-	private boolean validateStudent() {
+	
+	/*
+	@Override
+	public void validate() {
 		if(busiOrder ==null || busiOrder.getStartDate()==null){
-			addActionError("服务开始时间不能为空");
-			return false;
+			addActionMessage("服务开始时间不能为空");
 		}
 		
 		if(busiOrder ==null || busiOrder.getEndDate()==null){
-			addActionError("服务结束时间不能为空");
-			return false;
+			addActionMessage("服务结束时间不能为空");
+		}
+		
+		if(busiOrder.getStartDate().before(new Date())){
+			addActionMessage("服务开始时间必须大于等于当前时间");
 		}
 		
 		if(busiOrder.getStartDate().after(busiOrder.getEndDate())){
-			addActionError("服务开始时间不能提前于服务结束时间");
-			return false;
+			addActionMessage("服务开始时间不能提前于服务结束时间");
 		}
 		
 		//校验学生
 		boolean isExist=checkValidStudent(student);
 		if(isExist){
-			addActionError("学生学号重复");
-			return false;
+			addActionMessage("学生学号重复");
 		}
-		return true;
 	}
-	
+
 	//校验学生
 	public boolean checkValidStudent(Student student) {
 		boolean isExist = studentService.checkStuIDNum(student);
 		
 		return isExist;
-	}
+	}*/
 
 	public String cancel(){
 		if(id ==null ){
